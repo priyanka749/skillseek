@@ -14,7 +14,7 @@ class LoginView extends StatelessWidget {
     return Scaffold(
 
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(screenWidth * 0.08),
+        padding: EdgeInsets.all(screenWidth * 0.07),
         
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -22,23 +22,15 @@ class LoginView extends StatelessWidget {
              Image.asset(
             'assets/images/Blue_Simple_Personal_Logo-removebg-preview.png',
           ),
-            Text(
-              'Log In',
-              style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.08, // Adjust the multiplier for the desired size
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF1F4A9B),
-              ),
-              textAlign: TextAlign.center,
-            ),
+          
             SizedBox(height: screenHeight * 0.04),
             Text(
-              'LogIn Your Account',
+              'LogIn  With Your Account',
               style: TextStyle(
                 fontSize: isSmallScreen ? 15 : 20,
                 fontWeight: FontWeight.bold,
                   height: 1.5,
-                color: const Color(0xFF1F4A9B),
+                color: Color.fromARGB(255, 13, 13, 13),
               ),
               textAlign: TextAlign.center,
             ),
