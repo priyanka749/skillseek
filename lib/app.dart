@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skillseek/view/signup_view.dart';
+import 'package:skillseek/view/landing_page_view.dart';
 
 
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
+      home: LandingpageView(),
     );
   }
 }

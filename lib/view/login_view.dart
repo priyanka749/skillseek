@@ -1,112 +1,113 @@
-import 'package:flutter/material.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+import 'package:flutter/material.dart';
+import 'package:skillseek/view/signup_view.dart';
+
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmallScreen = screenWidth < 600;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 231, 231, 233),
-        toolbarHeight: 50.0,
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            'assets/images/Blue_Simple_Personal_Logo-removebg-preview.png',
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.account_circle,
-              color: Color(0xFF1F4A9B), // Changed to blue
-            ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(  // Wrap everything inside SingleChildScrollView
-        padding: const EdgeInsets.all(30.0),
+
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(screenWidth * 0.08),
+        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [ 
-            const Text(
-              'Sign Up', // Moved the Sign Up title here
+          children: [
+             Image.asset(
+            'assets/images/Blue_Simple_Personal_Logo-removebg-preview.png',
+          ),
+            Text(
+              'Log In',
               style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1F4A9B),
+              fontSize: MediaQuery.of(context).size.width * 0.08, // Adjust the multiplier for the desired size
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF1F4A9B),
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 30),
-            const Text(
-              'Create Your Account',
+            SizedBox(height: screenHeight * 0.04),
+            Text(
+              'LogIn Your Account',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: isSmallScreen ? 15 : 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F4A9B),
+                  height: 1.5,
+                color: const Color(0xFF1F4A9B),
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 60),
-            const CustomTextField(hintText: 'Full Name', icon: Icons.person),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.10),
             const CustomTextField(hintText: 'Email', icon: Icons.email),
-            const SizedBox(height: 16),
-            const CustomTextField(hintText: 'Phone Number', icon: Icons.phone),
-            const SizedBox(height: 16),
-            const CustomTextField(hintText: 'Address', icon: Icons.location_on),
-            const SizedBox(height: 16),
-            const CustomTextField(
-                hintText: 'Password', icon: Icons.lock, obscureText: true),
-            const SizedBox(height: 16),
-            const CustomTextField(
-                hintText: 'Confirm Password',
-                icon: Icons.lock,
-                obscureText: true),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.04),
+            const CustomTextField(hintText: 'Password', icon: Icons.lock, obscureText: true),
+            SizedBox(height: screenHeight * 0.04),
+            Center(
+              child: Text(
+                'Or LogIn with',
+                style: TextStyle(
+                  fontSize: isSmallScreen ? 15 : 16,
+                  color: const Color.fromARGB(255, 10, 10, 10),
+                ),
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Center(
+             
+            ),
+            SizedBox(height: screenHeight * 0.03),
             ElevatedButton(
               onPressed: () {
-                // Sign-up logic here
-                print('Sign-up button clicked');
+                // Sign In logic here
+                print('Sign In button clicked');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF1F4A9B),
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              child: const Text(
-                'Sign Up',
+              child: Text(
+                'Sign In',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: isSmallScreen ? 16 : 18,
                   color: Colors.white,
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Already have an account? ',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                Text(
+        'Don\'t have an account? ',
+          style: TextStyle(
+        fontSize: isSmallScreen ? 16 : 20,
+        color: Color.fromARGB(255, 6, 6, 6), // Added color property
+              ),
+            ),
                   GestureDetector(
-                    onTap: () {
-                      // Navigate to Sign In page
-                      print('Navigate to Sign In page');
+                    onTap: () { Navigator.push(
+                      context,
+                   MaterialPageRoute(builder: (context) => const SignUpPage()), // Replace 'SignUpPage' with your sign-up page widget
+                    );
+                      
+                      // Navigate to Sign Up page
+                      print('Navigate to Sign Up page');
                     },
-                    child: const Text(
-                      'Sign In',
+                    child: Text(
+                      'Sign Up',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: isSmallScreen ? 17 : 25,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1F4A9B),
+                        color: const Color(0xFF1F4A9B),
                       ),
                     ),
                   ),
@@ -134,6 +135,8 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return TextField(
       obscureText: obscureText,
       decoration: InputDecoration(
@@ -145,18 +148,20 @@ class CustomTextField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
           borderSide: const BorderSide(
-            color: Color(0xFF1F4A9B), // Blue border
+            color: Color(0xFF1F4A9B),
             width: 2,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
           borderSide: const BorderSide(
-            color: Color(0xFF1F4A9B), // Blue border when focused
+            color: Color(0xFF1F4A9B),
             width: 2,
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: screenWidth * 0.03,
+        ),
       ),
     );
   }
