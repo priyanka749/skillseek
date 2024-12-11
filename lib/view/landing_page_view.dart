@@ -8,13 +8,13 @@ class LandingpageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
+        decoration: const BoxDecoration(
+         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFF1F4A9B), // Deep blue
-              const Color(0xFF4A90E2), // Lighter blue gradient
+              Color(0xFF1F4A9B), // Deep blue
+              Color(0xFF4A90E2), // Lighter blue gradient
             ],
           ),
         ),

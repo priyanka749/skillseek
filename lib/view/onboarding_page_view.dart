@@ -3,12 +3,12 @@ import 'package:skillseek/view/login_view.dart';
 import 'package:skillseek/view/signup_view.dart';
 
 class OnboardingPageView extends StatelessWidget {
-  const OnboardingPageView ({super.key});
+  const OnboardingPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Background color
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -18,45 +18,46 @@ class OnboardingPageView extends StatelessWidget {
               children: [
                 // Logo
                 Image.asset(
-                  'assets/images/skillseeklogo.png', // Update with your logo path
-                  height: 200, // Adjust height as needed
+                  'assets/images/skillseeklogo.png',
+                  height: 200,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 20), // Padding for the top
-                ),
-                // App Name
-                const Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: SizedBox(), // Add your app name if necessary
-                ),
+
+                const SizedBox(height: 20),
+
+            
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
-                    '"SkillSeek: Your trusted platform for convenient, reliable, and hassle-free services with professionals!"',
+                    '"SkillSeek: Redefining Service Excellence with Trusted Professionals at Your Fingertips."',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 10, 10, 10),
+                      fontFamily: 'Montserrat', // Updated font
+                      fontSize: 19,
+                      color: Color.fromARGB(255, 48, 61, 85),
+                      fontWeight: FontWeight.w600,
+                      
+                      height: 1.6,
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 240), // Padding for the bottom space
-                ),
+
+                const SizedBox(height: 240),
+
                 // Log In Button
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0), // Padding for the button
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: ElevatedButton(
-                    onPressed: () {  Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LoginView()),
-                        );
                     
-                      
-                      // TODO: Navigate to Login Page
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginView(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF1F4A9B), // Custom blue color
+                      backgroundColor: const Color(0xFF1F4A9B),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 80,
                         vertical: 10,
@@ -66,27 +67,30 @@ class OnboardingPageView extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
+             
                       'Log In',
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.white, // White text color
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
+
                 // Sign Up Button
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0), // Padding for the button
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: ElevatedButton(
                     onPressed: () {
-                       Navigator.push(
+                      Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const SignUpPage()),
-                        );
-                      // TODO: Navigate to Sign Up Page
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF1F4A9B), // Custom blue color
+                      backgroundColor: const Color(0xFF1F4A9B),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 80,
                         vertical: 10,
@@ -99,24 +103,24 @@ class OnboardingPageView extends StatelessWidget {
                       'Sign Up',
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.white, // White text color
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
+
                 // Forgot Password Button
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0), // Padding for the forgot password button
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: TextButton(
                     onPressed: () {
-                      
                       // TODO: Navigate to Forgot Password Page
                     },
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Color(0xFF1F4A9B), // Custom blue color
+                        color: Color(0xFF1F4A9B),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -129,11 +133,4 @@ class OnboardingPageView extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: OnboardingPageView(),
-  ));
 }

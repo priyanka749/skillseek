@@ -1,43 +1,46 @@
 import 'package:flutter/material.dart';
+
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const Color primaryColor =  Color(0xFF1F4A9B);// Blue color
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: Image.asset(
-            'assets/logo.png',
+            'assets/images/skillseeklogo.png',
             fit: BoxFit.contain,
-          ),
-        ),
-        title: Text(
-          'SKILL SEEK',
-          style: TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
+            height: 100,
+            width: 100,
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.notifications,
-              color: Colors.blue,
+              color: primaryColor,
             ),
             onPressed: () {},
           ),
           CircleAvatar(
             backgroundColor: Colors.grey[300],
-            child: Icon(
-              Icons.person,
-              color: Colors.blue,
+            radius: 18,
+            child: const Padding(
+              padding: EdgeInsets.all(0.0),
+              child: Icon(
+                Icons.person,
+                color: primaryColor,
+                size: 20,
+              ),
             ),
-          ),
+          )
         ],
       ),
       body: Column(
@@ -49,36 +52,52 @@ class DashboardView extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Search...',
-                prefixIcon: Icon(Icons.search, color: Colors.blue),
+                prefixIcon: const Icon(Icons.search, color: primaryColor),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide.none,
                 ),
-                contentPadding: EdgeInsets.symmetric(vertical: 0),
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide:
+                      const BorderSide(color: primaryColor, width: 2.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide:
+                      const BorderSide(color: primaryColor, width: 2.0),
+                ),
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(top: 100), // Lower the container slightly
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+              margin: const EdgeInsets.only(top: 100),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 240, 240, 240), // Light background
+                borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(20.0),
                 child: GridView.count(
                   crossAxisCount: 3,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
                   children: [
-                    _buildSkillCard('Plumber', Icons.build),
-                    _buildSkillCard('Painter', Icons.format_paint),
-                    _buildSkillCard('Carpenter', Icons.handyman),
-                    _buildSkillCard('Chef', Icons.restaurant),
-                    _buildSkillCard('Cleaner', Icons.cleaning_services),
-                    _buildSkillCard('Electrician', Icons.electrical_services),
+                    _buildSkillCard('Plumber',
+                        'assets/images/Plumber with tools repairing a pipe.png', primaryColor),
+                    _buildSkillCard('Painter',
+                        'assets/images/The painter paints the wall.png', primaryColor),
+                    _buildSkillCard('Carpenter',
+                        'assets/images/Working with a chainsaw.png', primaryColor),
+                    _buildSkillCard('Chef',
+                        'assets/images/Cook making a halloween dinner.png', primaryColor),
+                    _buildSkillCard('Cleaner',
+                        'assets/images/Man cleans and pours cleaning agent into a bucket(1).png', primaryColor),
+                    _buildSkillCard('Electrician',
+                        'assets/images/Man upgrading the system unit of a computer with a new graphic card.png', primaryColor),
                   ],
                 ),
               ),
@@ -89,33 +108,33 @@ class DashboardView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () {},
-        child: Icon(
+        child: const Icon(
           Icons.add,
-          color: Colors.blue,
+          color: primaryColor,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 8.0,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 6.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: Icon(Icons.home, color: Colors.blue),
+              icon: const Icon(Icons.home, color: primaryColor),
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.bar_chart, color: Colors.grey),
+              icon: const Icon(Icons.bar_chart, color: Colors.grey),
               onPressed: () {},
             ),
-            SizedBox(width: 48), // Space for the FAB
+            const SizedBox(width: 38),
             IconButton(
-              icon: Icon(Icons.swap_horiz, color: Colors.grey),
+              icon: const Icon(Icons.swap_horiz, color: Colors.grey),
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.person, color: Colors.grey),
+              icon: const Icon(Icons.person, color: Colors.grey),
               onPressed: () {},
             ),
           ],
@@ -124,32 +143,40 @@ class DashboardView extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillCard(String title, IconData icon) {
+  Widget _buildSkillCard(String title, String imagePath, Color color) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
+        color: color, // Blue background for cards
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 10,
-            offset: Offset(0, 5),
+            offset: Offset(0, 8),
           ),
         ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            color: Colors.blue,
-            size: 40,
+          Container(
+            height: 70,
+            width: 80,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 8),
           Text(
             title,
-            style: TextStyle(
-              color: Colors.blue,
+            style: const TextStyle(
+              color: Colors.white, // White text for better contrast
               fontWeight: FontWeight.bold,
             ),
           ),

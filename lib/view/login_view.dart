@@ -19,11 +19,11 @@ class LoginView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 40,),
+            SizedBox(height: 70,),
             Center(
               child: Image.asset(
                 'assets/images/skillseeklogo.png',
-                  height: screenHeight * 0.20, 
+                  height: screenHeight * 0.23, 
               ),
             ),
             SizedBox(height: screenHeight *0 ), // Reduced spacing here
@@ -32,29 +32,20 @@ class LoginView extends StatelessWidget {
               style: TextStyle(
                 fontSize: isSmallScreen ? 20 : 20,
                 fontWeight: FontWeight.bold,
-                height: 0.1,
+                height: 0.3,
                 color: Color.fromARGB(255, 13, 13, 13),
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: screenHeight * 0.03),
-            const CustomTextField(hintText: 'Email', icon: Icons.email),
+            SizedBox(height: screenHeight * 0.05),
+            const CustomTextField(hintText: 'Username', icon: Icons.person),
             SizedBox(height: screenHeight * 0.02),
             const CustomTextField(
               hintText: 'Password',
               icon: Icons.lock,
               obscureText: true,
             ),
-            SizedBox(height: screenHeight * 0.03),
-            Center(
-              child: Text(
-                'Or LogIn with',
-                style: TextStyle(
-                  fontSize: isSmallScreen ? 17 : 16,
-                  color: const Color.fromARGB(255, 10, 10, 10),
-                ),
-              ),
-            ),
+           
             SizedBox(height: screenHeight * 0.01),
     
             SizedBox(height: screenHeight * 0.03),
@@ -75,16 +66,16 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Sign In',
+                    'Log In',
                     style: TextStyle(
-                      fontSize: isSmallScreen ? 16 : 18,
+                      fontSize: isSmallScreen ? 19 : 18,
                       color: Colors.white,
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: screenHeight * 0.02),
+            SizedBox(height: screenHeight * 0.03),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -92,8 +83,8 @@ class LoginView extends StatelessWidget {
                   Text(
                     'Don\'t have an account? ',
                     style: TextStyle(
-                      fontSize: isSmallScreen ? 16 : 20,
-                      color: Color.fromARGB(255, 6, 6, 6), // Added color property
+                      fontSize: isSmallScreen ? 19 : 20,
+                      color: const Color.fromARGB(255, 6, 6, 6), // Added color property
                     ),
                   ),
                   GestureDetector(

@@ -11,19 +11,20 @@ class SignUpPage extends StatelessWidget {
     final isSmallScreen = screenWidth < 600;
 
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(242, 245, 250, 1),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(screenWidth * 0.08),
-        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-           const SizedBox(height: 80,),
+            const SizedBox(height: 80),
             Text(
               'Sign Up',
               style: TextStyle(
-                fontSize: isSmallScreen ? 24 : 30,
+                fontSize: isSmallScreen ? 29 : 32,
                 fontWeight: FontWeight.bold,
                 color: const Color(0xFF1F4A9B),
+                fontFamily: 'Poppins',
               ),
               textAlign: TextAlign.center,
             ),
@@ -31,9 +32,10 @@ class SignUpPage extends StatelessWidget {
             Text(
               'Create Your Account',
               style: TextStyle(
-                fontSize: isSmallScreen ? 16 : 20,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xFF1F4A9B),
+                fontSize: isSmallScreen ? 18 : 22,
+                fontWeight: FontWeight.w500,
+                color: const Color.fromARGB(255, 8, 8, 8),
+                fontFamily: 'Poppins',
               ),
               textAlign: TextAlign.center,
             ),
@@ -69,8 +71,9 @@ class SignUpPage extends StatelessWidget {
               child: Text(
                 'Sign Up',
                 style: TextStyle(
-                  fontSize: isSmallScreen ? 16 : 18,
+                  fontSize: isSmallScreen ? 18 : 20,
                   color: Colors.white,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -81,19 +84,26 @@ class SignUpPage extends StatelessWidget {
                 children: [
                   Text(
                     'Already have an account? ',
-                    style: TextStyle(fontSize: isSmallScreen ? 14 : 16),
+                    style: TextStyle(
+                      fontSize: isSmallScreen ? 16 : 16,
+                      fontFamily: 'Montserrat',
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
                       // Navigate to Sign In page
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginView()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginView()));
                     },
                     child: Text(
-                      'Log In',
+                      'LogIn',
                       style: TextStyle(
-                        fontSize: isSmallScreen ? 14 : 16,
+                        fontSize: isSmallScreen ? 19: 16,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xFF1F4A9B),
+                        fontFamily: 'Montserrat',
                       ),
                     ),
                   ),
@@ -113,11 +123,11 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.icon,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -130,23 +140,24 @@ class CustomTextField extends StatelessWidget {
         hintText: hintText,
         hintStyle: const TextStyle(
           color: Color.fromARGB(255, 47, 46, 46),
+          fontFamily: 'Poppins',
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
             color: Color(0xFF1F4A9B),
             width: 2,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
             color: Color(0xFF1F4A9B),
             width: 2,
           ),
         ),
         contentPadding: EdgeInsets.symmetric(
-          vertical: screenWidth * 0.03,
+          vertical: screenWidth * 0.04,
         ),
       ),
     );
