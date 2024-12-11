@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:skillseek/view/dashboard_view.dart';
 import 'package:skillseek/view/signup_view.dart';
 
 class LoginView extends StatelessWidget {
@@ -12,85 +12,99 @@ class LoginView extends StatelessWidget {
     final isSmallScreen = screenWidth < 600;
 
     return Scaffold(
-
+      backgroundColor: const Color.fromRGBO(242, 245, 250, 1),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(screenWidth * 0.07),
-        
+        padding: EdgeInsets.all(screenWidth * 0.06),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Image.asset(
-            'assets/images/Blue_Simple_Personal_Logo-removebg-preview.png',
-          ),
-          
-            SizedBox(height: screenHeight * 0.04),
+            SizedBox(height: 40,),
+            Center(
+              child: Image.asset(
+                'assets/images/skillseeklogo.png',
+                  height: screenHeight * 0.20, 
+              ),
+            ),
+            SizedBox(height: screenHeight *0 ), // Reduced spacing here
             Text(
-              'LogIn  With Your Account',
+              'Log In With Your Account',
               style: TextStyle(
-                fontSize: isSmallScreen ? 15 : 20,
+                fontSize: isSmallScreen ? 20 : 20,
                 fontWeight: FontWeight.bold,
-                  height: 1.5,
+                height: 0.1,
                 color: Color.fromARGB(255, 13, 13, 13),
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: screenHeight * 0.10),
+            SizedBox(height: screenHeight * 0.03),
             const CustomTextField(hintText: 'Email', icon: Icons.email),
-            SizedBox(height: screenHeight * 0.04),
-            const CustomTextField(hintText: 'Password', icon: Icons.lock, obscureText: true),
-            SizedBox(height: screenHeight * 0.04),
+            SizedBox(height: screenHeight * 0.02),
+            const CustomTextField(
+              hintText: 'Password',
+              icon: Icons.lock,
+              obscureText: true,
+            ),
+            SizedBox(height: screenHeight * 0.03),
             Center(
               child: Text(
                 'Or LogIn with',
                 style: TextStyle(
-                  fontSize: isSmallScreen ? 15 : 16,
+                  fontSize: isSmallScreen ? 17 : 16,
                   color: const Color.fromARGB(255, 10, 10, 10),
                 ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.02),
-            Center(
-             
-            ),
+            SizedBox(height: screenHeight * 0.01),
+    
             SizedBox(height: screenHeight * 0.03),
-            ElevatedButton(
-              onPressed: () {
-                // Sign In logic here
-                print('Sign In button clicked');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1F4A9B),
-                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+            Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const DashboardView()));
+                    // Sign In logic here
+                    // print('Sign In button clicked');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF1F4A9B),
+                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: Text(
+                    'Sign In',
+                    style: TextStyle(
+                      fontSize: isSmallScreen ? 16 : 18,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
-              child: Text(
-                'Sign In',
-                style: TextStyle(
-                  fontSize: isSmallScreen ? 16 : 18,
-                  color: Colors.white,
-                ),
-              ),
+              ],
             ),
             SizedBox(height: screenHeight * 0.02),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                Text(
-        'Don\'t have an account? ',
-          style: TextStyle(
-        fontSize: isSmallScreen ? 16 : 20,
-        color: Color.fromARGB(255, 6, 6, 6), // Added color property
-              ),
-            ),
+                  Text(
+                    'Don\'t have an account? ',
+                    style: TextStyle(
+                      fontSize: isSmallScreen ? 16 : 20,
+                      color: Color.fromARGB(255, 6, 6, 6), // Added color property
+                    ),
+                  ),
                   GestureDetector(
-                    onTap: () { Navigator.push(
-                      context,
-                   MaterialPageRoute(builder: (context) => const SignUpPage()), // Replace 'SignUpPage' with your sign-up page widget
-                    );
-                      
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ), // Replace 'SignUpPage' with your sign-up page widget
+                      );
+
                       // Navigate to Sign Up page
                       print('Navigate to Sign Up page');
                     },
@@ -135,24 +149,24 @@ class CustomTextField extends StatelessWidget {
         prefixIcon: Icon(icon, color: const Color(0xFF1F4A9B)),
         hintText: hintText,
         hintStyle: const TextStyle(
-          color: Color.fromARGB(255, 47, 46, 46),
+          color: Color.fromARGB(255, 0, 0, 0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
             color: Color(0xFF1F4A9B),
             width: 2,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
             color: Color(0xFF1F4A9B),
             width: 2,
           ),
         ),
         contentPadding: EdgeInsets.symmetric(
-          vertical: screenWidth * 0.03,
+          vertical: screenWidth * 0.04,
         ),
       ),
     );

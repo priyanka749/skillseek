@@ -18,7 +18,7 @@ class OnboardingPageView extends StatelessWidget {
               children: [
                 // Logo
                 Image.asset(
-                  'assets/images/Blue_Simple_Personal_Logo-removebg-preview.png', // Update with your logo path
+                  'assets/images/skillseeklogo.png', // Update with your logo path
                   height: 200, // Adjust height as needed
                 ),
                 const Padding(
