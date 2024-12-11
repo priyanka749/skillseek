@@ -8,7 +8,16 @@ class LandingpageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color(0xFF1F4A9B), // Blue background color
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color(0xFF1F4A9B), // Deep blue
+              const Color(0xFF4A90E2), // Lighter blue gradient
+            ],
+          ),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -20,21 +29,22 @@ class LandingpageView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/Blue_Simple_Personal_Logo_1_-removebg-preview.png',
-                      fit: BoxFit.contain, // Ensures the image scales properly
-                      height: MediaQuery.of(context).size.height * 0.5, // 50% of screen height
-                      width: MediaQuery.of(context).size.width * 0.8, // 80% of screen width
+                      'assets/images/skillseek_white[1].png',
+                      fit: BoxFit.contain,
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.7,
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
+                    
                   ],
                 ),
               ),
-              // Pagination Indicators
+              // Get Started Button
               Expanded(
+                flex: 1,
                 child: Column(
                   children: [
-                    const SizedBox(height: 160),
-                    // "Get Started" Button
+                    const Spacer(),
                     ElevatedButton(
                       onPressed: () {
                         // Navigate to OnboardingPageView
@@ -46,22 +56,35 @@ class LandingpageView extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1F4A9B),
+                        backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(25),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 50,
+                          vertical: 14,
+                          horizontal: 60,
                         ),
+                        elevation: 8,
+                        shadowColor: Colors.black.withOpacity(0.2),
                       ),
                       child: const Text(
                         'Get Started',
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Color.fromARGB(255, 244, 244, 244),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1F4A9B),
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Your gateway to expert services',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
