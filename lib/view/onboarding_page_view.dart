@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skillseek/view/login_view.dart';
+import 'package:skillseek/view/signup_view.dart';
 
 class OnboardingPageView extends StatelessWidget {
   const OnboardingPageView ({super.key});
@@ -45,7 +47,12 @@ class OnboardingPageView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0), // Padding for the button
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () {  Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginView()),
+                        );
+                    
+                      
                       // TODO: Navigate to Login Page
                     },
                     style: ElevatedButton.styleFrom(
@@ -72,6 +79,10 @@ class OnboardingPageView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8.0), // Padding for the button
                   child: ElevatedButton(
                     onPressed: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SignUpPage()),
+                        );
                       // TODO: Navigate to Sign Up Page
                     },
                     style: ElevatedButton.styleFrom(
@@ -98,6 +109,7 @@ class OnboardingPageView extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8.0), // Padding for the forgot password button
                   child: TextButton(
                     onPressed: () {
+                      
                       // TODO: Navigate to Forgot Password Page
                     },
                     child: const Text(
