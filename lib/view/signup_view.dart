@@ -58,8 +58,12 @@ class SignUpPage extends StatelessWidget {
             SizedBox(height: screenHeight * 0.03),
             ElevatedButton(
               onPressed: () {
+                Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginView(),
                 // Sign-up logic here
-                print('Sign-up button clicked');
+                        ));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF1F4A9B),

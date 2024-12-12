@@ -5,9 +5,10 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor =  Color(0xFF1F4A9B);// Blue color
+    const Color primaryColor = Color(0xFF1F4A9B); // Blue color
 
     return Scaffold(
+      backgroundColor: const Color(0xFF1F4A9B), // Changed to black background
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -32,13 +33,10 @@ class DashboardView extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Colors.grey[300],
             radius: 18,
-            child: const Padding(
-              padding: EdgeInsets.all(0.0),
-              child: Icon(
-                Icons.person,
-                color: primaryColor,
-                size: 20,
-              ),
+            child: const Icon(
+              Icons.person,
+              color: primaryColor,
+              size: 20,
             ),
           )
         ],
@@ -60,13 +58,11 @@ class DashboardView extends StatelessWidget {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
-                  borderSide:
-                      const BorderSide(color: primaryColor, width: 2.0),
+                  borderSide: const BorderSide(color: Color(0xFFF8F8F8), width: 2),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
-                  borderSide:
-                      const BorderSide(color: primaryColor, width: 2.0),
+                  borderSide: const BorderSide(color: primaryColor, width: 2.0),
                 ),
               ),
             ),
@@ -76,8 +72,15 @@ class DashboardView extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.only(top: 100),
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 240, 240, 240), // Light background
+                color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(255, 13, 29, 77),
+                    blurRadius: 15.0,
+                    offset: Offset(0, -5),
+                  ),
+                ],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -87,17 +90,17 @@ class DashboardView extends StatelessWidget {
                   mainAxisSpacing: 15,
                   children: [
                     _buildSkillCard('Plumber',
-                        'assets/images/Plumber with tools repairing a pipe.png', primaryColor),
+                        'assets/images/Plumber with tools repairing a pipe.png'),
                     _buildSkillCard('Painter',
-                        'assets/images/The painter paints the wall.png', primaryColor),
+                        'assets/images/The painter paints the wall.png'),
                     _buildSkillCard('Carpenter',
-                        'assets/images/Working with a chainsaw.png', primaryColor),
+                        'assets/images/Working with a chainsaw.png'),
                     _buildSkillCard('Chef',
-                        'assets/images/Cook making a halloween dinner.png', primaryColor),
+                        'assets/images/Cook making a halloween dinner.png'),
                     _buildSkillCard('Cleaner',
-                        'assets/images/Man cleans and pours cleaning agent into a bucket(1).png', primaryColor),
+                        'assets/images/Man cleans and pours cleaning agent into a bucket(1).png'),
                     _buildSkillCard('Electrician',
-                        'assets/images/Man upgrading the system unit of a computer with a new graphic card.png', primaryColor),
+                        'assets/images/Man upgrading the system unit of a computer with a new graphic card.png'),
                   ],
                 ),
               ),
@@ -106,17 +109,16 @@ class DashboardView extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
+        backgroundColor: primaryColor,
         onPressed: () {},
         child: const Icon(
-          Icons.add,
-          color: primaryColor,
+          Icons.add_location_alt,
+          color: Colors.white,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 6.0,
+        color: Color.fromARGB(255, 255, 255, 255), // Changed BottomAppBar color to black
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -125,16 +127,16 @@ class DashboardView extends StatelessWidget {
               onPressed: () {},
             ),
             IconButton(
-              icon: const Icon(Icons.bar_chart, color: Colors.grey),
+              icon: const Icon(Icons.bar_chart, color: primaryColor),
               onPressed: () {},
             ),
             const SizedBox(width: 38),
             IconButton(
-              icon: const Icon(Icons.swap_horiz, color: Colors.grey),
+              icon: const Icon(Icons.settings, color: primaryColor),
               onPressed: () {},
             ),
             IconButton(
-              icon: const Icon(Icons.person, color: Colors.grey),
+              icon: const Icon(Icons.person, color: primaryColor),
               onPressed: () {},
             ),
           ],
@@ -143,15 +145,15 @@ class DashboardView extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillCard(String title, String imagePath, Color color) {
+  Widget _buildSkillCard(String title, String imagePath) {
     return Container(
       decoration: BoxDecoration(
-        color: color, // Blue background for cards
+        color: Colors.white, // Neutral background for cards
         borderRadius: BorderRadius.circular(30),
         boxShadow: const [
           BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
+            color: Color.fromARGB(210, 117, 118, 118),
+            blurRadius: 30,
             offset: Offset(0, 8),
           ),
         ],
@@ -172,11 +174,11 @@ class DashboardView extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           Text(
             title,
             style: const TextStyle(
-              color: Colors.white, // White text for better contrast
+               // Blue text for better readability
               fontWeight: FontWeight.bold,
             ),
           ),
