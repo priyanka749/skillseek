@@ -8,12 +8,12 @@ class DashboardView extends StatelessWidget {
     const Color primaryColor = Color(0xFF1F4A9B); // Blue color
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1F4A9B), // Changed to black background
+      backgroundColor: const Color(0xFF1F4A9B),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(1.0),
           child: Image.asset(
             'assets/images/skillseeklogo.png',
             fit: BoxFit.contain,
@@ -24,21 +24,14 @@ class DashboardView extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.notifications,
-              color: primaryColor,
-            ),
+            icon: const Icon(Icons.notifications, color: primaryColor),
             onPressed: () {},
           ),
-          CircleAvatar(
-            backgroundColor: Colors.grey[300],
-            radius: 18,
-            child: const Icon(
-              Icons.person,
-              color: primaryColor,
-              size: 20,
-            ),
-          )
+              const CircleAvatar(
+             radius: 18,
+              backgroundImage: AssetImage('assets/images/person.png'),
+            backgroundColor: Colors.transparent,
+             )
         ],
       ),
       body: Column(
@@ -76,7 +69,7 @@ class DashboardView extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
                 boxShadow: [
                   BoxShadow(
-                    color: Color.fromARGB(255, 13, 29, 77),
+                    color: Color.fromARGB(255, 22, 38, 86),
                     blurRadius: 15.0,
                     offset: Offset(0, -5),
                   ),
@@ -117,29 +110,41 @@ class DashboardView extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 255, 255, 255), // Changed BottomAppBar color to black
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.home, color: primaryColor),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(Icons.bar_chart, color: primaryColor),
-              onPressed: () {},
-            ),
-            const SizedBox(width: 38),
-            IconButton(
-              icon: const Icon(Icons.settings, color: primaryColor),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(Icons.person, color: primaryColor),
-              onPressed: () {},
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 255, 255, 255), 
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(255, 255, 255, 255), 
+              blurRadius: 20, 
+              offset: Offset(0, -5), 
             ),
           ],
+        ),
+        child: BottomAppBar(
+          color: Colors.transparent, 
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.home, color: Color(0xFF1F4A9B)),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.bar_chart, color: Color(0xFF1F4A9B)),
+                onPressed: () {},
+              ),
+              const SizedBox(width: 38), 
+              IconButton(
+                icon: const Icon(Icons.settings, color: Color(0xFF1F4A9B)),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.person, color: Color(0xFF1F4A9B)),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -178,7 +183,7 @@ class DashboardView extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-               // Blue text for better readability
+              color: Color(0xFF1F4A9B), // Black text for better readability
               fontWeight: FontWeight.bold,
             ),
           ),
