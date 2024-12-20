@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skillseek/view/onboarding_page_view.dart';
+import 'package:skillseek/view/onboarding_view.dart';
 
 class LandingpageView extends StatelessWidget {
   const LandingpageView({super.key});
@@ -9,7 +9,7 @@ class LandingpageView extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-         gradient: LinearGradient(
+          gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
@@ -35,7 +35,6 @@ class LandingpageView extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.7,
                     ),
                     const SizedBox(height: 20),
-                    
                   ],
                 ),
               ),
@@ -51,7 +50,7 @@ class LandingpageView extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const OnboardingPageView(),
+                            builder: (context) => const OnboardingPage(),
                           ),
                         );
                       },
@@ -70,10 +69,10 @@ class LandingpageView extends StatelessWidget {
                       child: const Text(
                         'Get Started',
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF1F4A9B),
-                        ),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF1F4A9B),
+                            fontFamily: "Montserrat Bold"),
                       ),
                     ),
                     const SizedBox(height: 20),
