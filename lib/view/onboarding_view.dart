@@ -15,7 +15,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 249, 255, 1),
+      backgroundColor: const Color.fromARGB(255, 246, 252, 255),
       body: Column(
         children: [
           Expanded(
@@ -28,25 +28,33 @@ class _OnboardingPageState extends State<OnboardingPage> {
               },
               children: [
                 buildPage(
-                  title: "SkillSeek: From Repairs to Renovations, We’ve Got You Covered.",
-                  subtitle: "Connecting you with skilled professionals, effortlessly.",
-                  imagePath: "assets/images/home-cleaning-services-500x500 1.png",
+                  title:
+                      "SkillSeek: From Repairs to Renovations, We’ve Got You Covered.",
+                  subtitle:
+                      "Connecting you with skilled professionals, effortlessly.",
+                  imagePath:
+                      "assets/images/home-cleaning-services-500x500 1.png",
                 ),
                 buildPage(
                   title: "Your Solution, Just a Click Away.",
-                  subtitle: "Find experts, book services, and get it done effortlessly.",
-                  imagePath:  "assets/images/home-cleaning-services-500x500 1.png",
+                  subtitle:
+                      "Find experts, book services, and get it done effortlessly.",
+                  imagePath:
+                      "assets/images/home-cleaning-services-500x500 1.png",
                 ),
                 buildPage(
                   title: "Your Talent, Their Solution.",
-                  subtitle: "SkillSeek bridges the gap between you and your next client.",
-                  imagePath:  "assets/images/home-cleaning-services-500x500 1.png",
+                  subtitle:
+                      "SkillSeek bridges the gap between you and your next client.",
+                  imagePath:
+                      "assets/images/home-cleaning-services-500x500 1.png",
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -72,7 +80,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       height: 10.0,
                       width: _currentIndex == index ? 12.0 : 8.0,
                       decoration: BoxDecoration(
-                        color: _currentIndex == index ? Colors.blue : Colors.grey,
+                        color:
+                            _currentIndex == index ? Colors.blue : Colors.grey,
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     );
@@ -88,7 +97,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     } else {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const OnboardingPageView()),
+                        MaterialPageRoute(
+                            builder: (context) => const OnboardingPageView()),
                       );
                     }
                   },

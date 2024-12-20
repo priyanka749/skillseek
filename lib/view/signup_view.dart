@@ -11,7 +11,7 @@ class SignUpPage extends StatelessWidget {
     final isSmallScreen = screenWidth < 600;
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(242, 245, 250, 1),
+      backgroundColor: const Color.fromARGB(255, 246, 252, 255),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(screenWidth * 0.08),
         child: Column(
@@ -59,11 +59,11 @@ class SignUpPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginView(),
-                // Sign-up logic here
-                        ));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginView(),
+                      // Sign-up logic here
+                    ));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF1F4A9B),
@@ -104,7 +104,7 @@ class SignUpPage extends StatelessWidget {
                     child: Text(
                       'LogIn',
                       style: TextStyle(
-                        fontSize: isSmallScreen ? 19: 16,
+                        fontSize: isSmallScreen ? 19 : 16,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xFF1F4A9B),
                         fontFamily: 'Montserrat',
