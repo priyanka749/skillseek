@@ -19,7 +19,7 @@ class LoginView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
             Center(
               child: Image.asset(
                 'assets/images/skillseeklogo.png',
@@ -33,7 +33,7 @@ class LoginView extends StatelessWidget {
                 fontSize: isSmallScreen ? 20 : 20,
                 fontWeight: FontWeight.bold,
                 height: 0.3,
-                color: Color.fromARGB(255, 13, 13, 13),
+                color: const Color.fromARGB(255, 13, 13, 13),
               ),
               textAlign: TextAlign.center,
             ),
@@ -124,11 +124,11 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.icon,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
