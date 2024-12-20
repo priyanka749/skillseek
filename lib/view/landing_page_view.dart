@@ -7,6 +7,7 @@ class LandingpageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 246, 252, 255),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
