@@ -12,21 +12,23 @@ class LoginView extends StatelessWidget {
     final isSmallScreen = screenWidth < 600;
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(242, 245, 250, 1),
+      backgroundColor: const Color.fromARGB(255, 246, 252, 255),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(screenWidth * 0.06),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 70,),
+            const SizedBox(
+              height: 70,
+            ),
             Center(
               child: Image.asset(
                 'assets/images/skillseeklogo.png',
-                  height: screenHeight * 0.23, 
+                height: screenHeight * 0.23,
               ),
             ),
-            SizedBox(height: screenHeight *0 ), // Reduced spacing here
+            SizedBox(height: screenHeight * 0), // Reduced spacing here
             Text(
               'Log In With Your Account',
               style: TextStyle(
@@ -45,22 +47,26 @@ class LoginView extends StatelessWidget {
               icon: Icons.lock,
               obscureText: true,
             ),
-           
+
             SizedBox(height: screenHeight * 0.01),
-    
+
             SizedBox(height: screenHeight * 0.03),
             Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ElevatedButton(
                   onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const DashboardView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DashboardView()));
                     // Sign In logic here
                     // print('Sign In button clicked');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1F4A9B),
-                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                    padding:
+                        EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -84,7 +90,8 @@ class LoginView extends StatelessWidget {
                     'Don\'t have an account? ',
                     style: TextStyle(
                       fontSize: isSmallScreen ? 19 : 20,
-                      color: const Color.fromARGB(255, 6, 6, 6), // Added color property
+                      color: const Color.fromARGB(
+                          255, 6, 6, 6), // Added color property
                     ),
                   ),
                   GestureDetector(

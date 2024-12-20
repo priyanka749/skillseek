@@ -7,8 +7,12 @@ class OnboardingPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 246, 252, 255),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -19,35 +23,32 @@ class OnboardingPageView extends StatelessWidget {
                 // Logo
                 Image.asset(
                   'assets/images/skillseeklogo.png',
-                  height: 200,
+                  height: height * 0.25,
                 ),
 
-                const SizedBox(height: 20),
+                SizedBox(height: height * 0.02),
 
-            
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Text(
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.1),
+                  child: const Text(
                     '"SkillSeek: Redefining Service Excellence with Trusted Professionals at Your Fingertips."',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: 'Montserrat', // Updated font
+                      fontFamily: 'Montserrat',
                       fontSize: 19,
                       color: Color.fromARGB(255, 48, 61, 85),
                       fontWeight: FontWeight.w600,
-                      
                       height: 1.6,
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 240),
+                SizedBox(height: height * 0.3),
 
                 // Log In Button
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: EdgeInsets.symmetric(vertical: height * 0.01),
                   child: ElevatedButton(
-                    
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -58,16 +59,15 @@ class OnboardingPageView extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1F4A9B),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 80,
-                        vertical: 10,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: width * 0.2,
+                        vertical: height * 0.015,
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                     child: const Text(
-             
                       'Log In',
                       style: TextStyle(
                         fontSize: 18,
@@ -79,7 +79,7 @@ class OnboardingPageView extends StatelessWidget {
 
                 // Sign Up Button
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: EdgeInsets.symmetric(vertical: height * 0.01),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -91,9 +91,9 @@ class OnboardingPageView extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1F4A9B),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 80,
-                        vertical: 10,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: width * 0.2,
+                        vertical: height * 0.015,
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -111,7 +111,7 @@ class OnboardingPageView extends StatelessWidget {
 
                 // Forgot Password Button
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: EdgeInsets.only(top: height * 0.01),
                   child: TextButton(
                     onPressed: () {
                       // TODO: Navigate to Forgot Password Page
