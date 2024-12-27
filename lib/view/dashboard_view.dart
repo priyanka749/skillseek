@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skillseek/view/about.dart';
-import 'package:skillseek/view/profile.dart';
-import 'package:skillseek/view/setting.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
@@ -11,92 +8,57 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
-  int _currentIndex = 0; // Index for Bottom Navigation
+  int _currentIndex = 0;
 
-  // List of pages for each BottomNavigationBarItem
   final List<Widget> _pages = [
     const HomeScreen(),
-    const Setting(),
-    const ProfileScreen(),
-    const AboutScreen(),
+    const Text('Settings Page'),
+    const Text('Profile Page'),
+    const Text('About Page'),
   ];
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Color(0xFF1F4A9B); // Blue color
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      backgroundColor: const Color(0xFF1F4A9B),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 4,
         leading: Padding(
-          padding: EdgeInsets.all(screenWidth * 0.02), // Responsive padding
+          padding: const EdgeInsets.all(8.0),
           child: Image.asset(
             'assets/images/skillseeklogo.png',
             fit: BoxFit.contain,
-            height: screenWidth * 0.2, // Responsive logo size
-            width: screenWidth * 0.2, // Responsive logo size
           ),
         ),
-        centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications, color: primaryColor),
+            icon: const Icon(Icons.notifications, color: Color(0xFF1F4A9B)),
             onPressed: () {},
           ),
           const CircleAvatar(
             radius: 18,
             backgroundImage: AssetImage('assets/images/person.png'),
             backgroundColor: Colors.transparent,
-          )
+          ),
+          const SizedBox(width: 8),
         ],
       ),
-      body: _pages[_currentIndex], // Show the current page from the list
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(
-            bottom: screenHeight * 0.05, right: screenWidth * 0.02),
-        child: FloatingActionButton(
-          backgroundColor: primaryColor,
-          onPressed: () {},
-          child: const Icon(
-            Icons.add_location_alt,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-      // Bottom Navigation Bar
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex, // Current selected index
+        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
-            _currentIndex = index; // Update index on tap
+            _currentIndex = index;
           });
         },
-        type: BottomNavigationBarType.fixed, // Ensures all items show
-        selectedItemColor: primaryColor,
-        unselectedItemColor: const Color.fromARGB(255, 8, 8, 8),
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: const Color(0xFF1F4A9B),
+        unselectedItemColor: const Color.fromARGB(255, 13, 13, 13),
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Setting',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: 'About',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Setting'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
         ],
       ),
     );
@@ -108,73 +70,167 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Color(0xFF1F4A9B);
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
-
+    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: screenWidth * 0.04, vertical: 8.0),
+          padding: const EdgeInsets.all(16.0),
           child: TextField(
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              hintText: 'Search...',
-              prefixIcon: const Icon(Icons.search, color: primaryColor),
+              hintText: 'Search here',
+              prefixIcon: const Icon(Icons.search, color: Color(0xFF1F4A9B)),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
                 borderSide: BorderSide.none,
               ),
-              contentPadding: const EdgeInsets.symmetric(vertical: 0),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide:
-                    const BorderSide(color: Color(0xFFF8F8F8), width: 2),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: const BorderSide(color: primaryColor, width: 2.0),
-              ),
+              contentPadding: const EdgeInsets.symmetric(vertical: 16),
             ),
           ),
         ),
-        const SizedBox(height: 10),
         Expanded(
           child: Container(
-            margin: EdgeInsets.only(top: screenHeight * 0.1),
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 22, 38, 86),
-                  blurRadius: 15.0,
-                  offset: Offset(0, -5),
-                ),
-              ],
             ),
-            child: Padding(
-              padding: EdgeInsets.all(screenWidth * 0.05),
-              child: GridView.count(
-                crossAxisCount: screenWidth > 600 ? 4 : 3, // Responsive grid
-                crossAxisSpacing: screenWidth * 0.05, // Responsive spacing
-                mainAxisSpacing: screenWidth * 0.05, // Responsive spacing
-                children: [
-                  _buildSkillCard('Plumber',
-                      'assets/images/Plumber with tools repairing a pipe.png'),
-                  _buildSkillCard('Painter',
-                      'assets/images/The painter paints the wall.png'),
-                  _buildSkillCard(
-                      'Carpenter', 'assets/images/Working with a chainsaw.png'),
-                  _buildSkillCard('Chef',
-                      'assets/images/Cook making a halloween dinner.png'),
-                  _buildSkillCard('Cleaner',
-                      'assets/images/Man cleans and pours cleaning agent into a bucket(1).png'),
-                  _buildSkillCard('Electrician',
-                      'assets/images/Man upgrading the system unit of a computer with a new graphic card.png'),
-                ],
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // "Today's Deal" section with gradient background
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF1F4A9B), Color(0xFF62A4D7)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromARGB(255, 94, 93, 93)
+                                .withOpacity(0.5),
+                            blurRadius: 15,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Today's Deal",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "50% OFF",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xFF1F4A9B),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              padding: screenWidth < 600
+                                  ? const EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 16)
+                                  : const EdgeInsets.symmetric(
+                                      vertical: 16, horizontal: 32),
+                              shadowColor: const Color(0xFF1F4A9B),
+                              elevation: 6,
+                            ),
+                            onPressed: () {},
+                            child: const Text('BOOK NOW'),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const SectionHeader(title: 'Service categories'),
+                    const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          FreelancerCard(
+                            name: 'Plumber',
+                            imagePath:
+                                'assets/images/Plumber with tools repairing a pipe.png',
+                          ),
+                          FreelancerCard(
+                            name: 'Electrician',
+                            imagePath:
+                                'assets/images/Man upgrading the system unit of a computer with a new graphic card.png',
+                          ),
+                          FreelancerCard(
+                            name: 'Mechanic',
+                            imagePath:
+                                'assets/images/Man cleans and pours cleaning agent into a bucket(1).png',
+                          ),
+                          FreelancerCard(
+                            name: 'Painter',
+                            imagePath:
+                                'assets/images/The painter paints the wall.png',
+                          ),
+                          FreelancerCard(
+                            name: 'Carpenter',
+                            imagePath:
+                                'assets/images/Working with a chainsaw.png',
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const SectionHeader(title: 'Top Services'),
+                    const Column(
+                      children: [
+                        ServiceCard(
+                          name: 'John Doe',
+                          rating: 4.9,
+                          description:
+                              'Highly experienced in plumbing services.',
+                          imagePath:
+                              'assets/images/Plumber with tools repairing a pipe.png',
+                        ),
+                        ServiceCard(
+                          name: 'Jane Smith',
+                          rating: 4.7,
+                          description:
+                              'Expert in electrical installations and repairs.',
+                          imagePath:
+                              'assets/images/The painter paints the wall.png',
+                        ),
+                        ServiceCard(
+                          name: 'Mike Johnson',
+                          rating: 4.8,
+                          description:
+                              'Reliable mechanic for all vehicle needs.',
+                          imagePath:
+                              'assets/images/Working with a chainsaw.png',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -182,43 +238,75 @@ class HomeScreen extends StatelessWidget {
       ],
     );
   }
+}
 
-  // Skill Card Widget
-  Widget _buildSkillCard(String title, String imagePath) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(210, 117, 117, 118),
-            blurRadius: 30,
-            offset: Offset(0, 8),
+class SectionHeader extends StatelessWidget {
+  final String title;
+
+  const SectionHeader({required this.title, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF1F4A9B),
           ),
-        ],
-      ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text('View All'),
+        ),
+      ],
+    );
+  }
+}
+
+class FreelancerCard extends StatelessWidget {
+  final String name;
+  final String imagePath;
+
+  const FreelancerCard({
+    required this.name,
+    required this.imagePath,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 70,
-            width: 80,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
+              color: const Color(0xFF1F4A9B),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(255, 14, 13, 13).withOpacity(0.4),
+                  blurRadius: 12,
+                  offset: const Offset(0, 6),
+                ),
+              ],
             ),
-            child: ClipOval(
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-              ),
+            child: CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage(imagePath),
+              backgroundColor: Colors.transparent,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
           Text(
-            title,
+            name,
             style: const TextStyle(
-              color: Color(0xFF1F4A9B),
               fontWeight: FontWeight.bold,
+              fontSize: 14,
             ),
           ),
         ],
@@ -227,196 +315,94 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// import 'package:flutter/material.dart';
-// import 'package:skillseek/view/about.dart';
-// import 'package:skillseek/view/profile.dart';
-// import 'package:skillseek/view/setting.dart';
+class ServiceCard extends StatelessWidget {
+  final String name;
+  final double rating;
+  final String description;
+  final String imagePath;
 
-// class DashboardView extends StatefulWidget {
-//   const DashboardView({super.key});
+  const ServiceCard({
+    required this.name,
+    required this.rating,
+    required this.description,
+    required this.imagePath,
+    super.key,
+  });
 
-//   @override
-//   State<DashboardView> createState() => _DashboardViewState();
-// }
-
-// class _DashboardViewState extends State<DashboardView> {
-//   int _currentIndex = 0; // Index for Bottom Navigation
-
-//   // List of pages for each BottomNavigationBarItem
-//   final List<Widget> _pages = [
-//     const HomeScreen(),
-//     const Setting(),
-//     const ProfileScreen(),
-//     const AboutScreen(),
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final double screenWidth = MediaQuery.of(context).size.width;
-//     final double screenHeight = MediaQuery.of(context).size.height;
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         elevation: 0,
-//         leading: Padding(
-//           padding: EdgeInsets.all(screenWidth * 0.02), // Responsive padding
-//           child: Image.asset(
-//             'assets/images/skillseeklogo.png',
-//             fit: BoxFit.contain,
-//             height: screenWidth * 0.2, // Responsive logo size
-//             width: screenWidth * 0.2, // Responsive logo size
-//           ),
-//         ),
-//         centerTitle: true,
-//         actions: [
-//           IconButton(
-//             icon: const Icon(Icons.notifications),
-//             onPressed: () {},
-//           ),
-//           const CircleAvatar(
-//             radius: 18,
-//             backgroundImage: AssetImage('assets/images/person.png'),
-//           ),
-//         ],
-//       ),
-//       body: _pages[_currentIndex], // Show the current page from the list
-//       floatingActionButton: Padding(
-//         padding: EdgeInsets.only(
-//             bottom: screenHeight * 0.05, right: screenWidth * 0.02),
-//         child: FloatingActionButton(
-//           onPressed: () {},
-//           child: const Icon(Icons.add_location_alt),
-//         ),
-//       ),
-//       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-//       // Bottom Navigation Bar
-//       bottomNavigationBar: BottomNavigationBar(
-//         currentIndex: _currentIndex, // Current selected index
-//         onTap: (index) {
-//           setState(() {
-//             _currentIndex = index; // Update index on tap
-//           });
-//         },
-//         type: BottomNavigationBarType.fixed, // Ensures all items show
-//         items: const [
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.home),
-//             label: 'Home',
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.settings),
-//             label: 'Setting',
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.person),
-//             label: 'Profile',
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.info),
-//             label: 'About',
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final double screenWidth = MediaQuery.of(context).size.width;
-//     final double screenHeight = MediaQuery.of(context).size.height;
-
-//     return Column(
-//       children: [
-//         Padding(
-//           padding: EdgeInsets.symmetric(
-//               horizontal: screenWidth * 0.04, vertical: 8.0),
-//           child: TextField(
-//             decoration: InputDecoration(
-//               hintText: 'Search...',
-//               prefixIcon: const Icon(Icons.search),
-//               border: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(25),
-//                 borderSide: BorderSide.none,
-//               ),
-//               contentPadding: const EdgeInsets.symmetric(vertical: 0),
-//             ),
-//           ),
-//         ),
-//         const SizedBox(height: 10),
-//         Expanded(
-//           child: Container(
-//             margin: EdgeInsets.only(top: screenHeight * 0.1),
-//             decoration: const BoxDecoration(
-//               borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
-//               boxShadow: [
-//                 BoxShadow(
-//                   blurRadius: 15.0,
-//                   offset: Offset(0, -5),
-//                 ),
-//               ],
-//             ),
-//             child: Padding(
-//               padding: EdgeInsets.all(screenWidth * 0.05),
-//               child: GridView.count(
-//                 crossAxisCount: screenWidth > 600 ? 4 : 3, // Responsive grid
-//                 crossAxisSpacing: screenWidth * 0.05, // Responsive spacing
-//                 mainAxisSpacing: screenWidth * 0.05, // Responsive spacing
-//                 children: [
-//                   _buildSkillCard('Plumber',
-//                       'assets/images/Plumber with tools repairing a pipe.png'),
-//                   _buildSkillCard('Painter',
-//                       'assets/images/The painter paints the wall.png'),
-//                   _buildSkillCard(
-//                       'Carpenter', 'assets/images/Working with a chainsaw.png'),
-//                   _buildSkillCard('Chef',
-//                       'assets/images/Cook making a halloween dinner.png'),
-//                   _buildSkillCard('Cleaner',
-//                       'assets/images/Man cleans and pours cleaning agent into a bucket(1).png'),
-//                   _buildSkillCard('Electrician',
-//                       'assets/images/Man upgrading the system unit of a computer with a new graphic card.png'),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-
-//   // Skill Card Widget
-//   Widget _buildSkillCard(String title, String imagePath) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(30),
-//         boxShadow: const [
-//           BoxShadow(
-//             blurRadius: 30,
-//             offset: Offset(0, 8),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           SizedBox(
-//             height: 70,
-//             width: 80,
-//             child: ClipOval(
-//               child: Image.asset(
-//                 imagePath,
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 4),
-//           Text(title),
-//         ],
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: const Color.fromARGB(255, 14, 13, 13).withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFF1F4A9B),
+            ),
+            child: CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage(imagePath),
+              backgroundColor: Colors.transparent,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  description,
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 86, 86, 86),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.star, color: Colors.amber, size: 14),
+                  Text('$rating'),
+                ],
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1F4A9B),
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Book Now'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
