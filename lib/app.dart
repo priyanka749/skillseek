@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skillseek/core/app_theme/app_theme.dart';
-import 'package:skillseek/view/landing_page_view.dart';
+import 'package:skillseek/features/landing/presentation/view/landing_page_view.dart';
 
 void main() {
   runApp(const MyApp());
