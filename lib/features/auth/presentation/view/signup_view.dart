@@ -40,7 +40,7 @@ class SignUpPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: screenHeight * 0.05),
-            const CustomTextField(hintText: 'Full Name', icon: Icons.person),
+            const CustomTextField(hintText: 'Username', icon: Icons.person),
             SizedBox(height: screenHeight * 0.02),
             const CustomTextField(hintText: 'Email', icon: Icons.email),
             SizedBox(height: screenHeight * 0.02),

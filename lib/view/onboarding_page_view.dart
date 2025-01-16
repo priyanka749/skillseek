@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skillseek/view/login_view.dart';
-import 'package:skillseek/view/signup_view.dart';
+import 'package:skillseek/features/auth/presentation/view/login_view.dart';
+import 'package:skillseek/features/auth/presentation/view/signup_view.dart';
 
 class OnboardingPageView extends StatelessWidget {
   const OnboardingPageView({super.key});
