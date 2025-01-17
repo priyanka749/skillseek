@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:skillseek/app/usecase/usecase.dart';
 import 'package:skillseek/core/error/failure.dart';
 import 'package:skillseek/features/auth/domain/entity/auth_entity.dart';
-import 'package:skillseek/features/auth/domain/repository/auth_entity.dart';
+import 'package:skillseek/features/auth/domain/repository/auth_repository.dart';
 
 class RegisterUserParams extends Equatable {
   final String username;
