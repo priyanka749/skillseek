@@ -53,7 +53,7 @@ class OnboardingPageView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const LoginView(),
+                          builder: (context) => LoginView(),
                         ),
                       );
                     },

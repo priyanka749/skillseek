@@ -1,48 +1,67 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skillseek/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:skillseek/app/di/di.dart';
+import 'package:skillseek/features/auth/domain/use_case/login_usecase.dart';
+import 'package:skillseek/features/dashboard/presentation/view/dashboard_view.dart';
+import 'package:skillseek/features/dashboard/presentation/view_model/home_cubit.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final RegisterBloc _registerBloc;
+  final LoginUseCase _loginUseCase;
 
-  LoginBloc({
-    required RegisterBloc registerBloc,
-  })  : _registerBloc = registerBloc,
+  LoginBloc(
+      {required LoginUseCase loginUseCase,
+      required HomeCubit homeCubit,
+      required registerBloc})
+      : _loginUseCase = loginUseCase,
         super(LoginState.initial()) {
-    on<NavigateRegisterScreenEvent>(_onNavigateRegisterScreenEvent);
-    on<NavigateHomeScreenEvent>(_onNavigateHomeScreenEvent);
-  }
-
-  void _onNavigateRegisterScreenEvent(
-      NavigateRegisterScreenEvent event, Emitter<LoginState> emit) {
-    Navigator.push(
-      event.context,
-      MaterialPageRoute(
-        builder: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider.value(
-                value: _registerBloc), // Provide existing RegisterBloc instance
-          ],
-          child: event.destination,
+    // Handle Login Event
+    on<LoginStudentEvent>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+      print('LoginStudentEvent');
+      final result = await _loginUseCase(
+        LoginParams(
+          username: event.username,
+          password: event.password,
         ),
-      ),
-    );
-  }
+      );
 
-  void _onNavigateHomeScreenEvent(
-      NavigateHomeScreenEvent event, Emitter<LoginState> emit) {
-    Navigator.pushReplacement(
-      event.context,
-      MaterialPageRoute(
-        builder: (context) => BlocProvider.value(
-          value: _registerBloc, // Ensure the same instance is used here
-          child: event.destination,
+      result.fold(
+        (failure) {
+          emit(state.copyWith(isLoading: false, isSuccess: false));
+          ScaffoldMessenger.of(event.context).showSnackBar(
+            const SnackBar(
+              content: Text('Invalid Credentials'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        },
+        (success) {
+          emit(state.copyWith(isLoading: false, isSuccess: true));
+          Navigator.pushReplacement(
+            event.context,
+            MaterialPageRoute(
+              builder: (context) => const DashboardView(),
+            ),
+          );
+        },
+      );
+    });
+
+    // Handle Navigation to Register Screen
+    on<NavigateRegisterScreenEvent>((event, emit) {
+      Navigator.push(
+        event.context,
+        MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<HomeCubit>(),
+            child: event.destination,
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

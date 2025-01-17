@@ -1,20 +1,23 @@
-part of 'register_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
-abstract class RegisterEvent extends Equatable {
+sealed class RegisterEvent extends Equatable {
+  const RegisterEvent();
+
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
-class Register extends RegisterEvent {
+class RegisterStudentEvent extends RegisterEvent {
   final BuildContext context;
   final String username;
   final String email;
   final String phoneNumber;
-  final String? address;
+  final String address;
   final String password;
   final String confirmPassword;
 
-  Register({
+  const RegisterStudentEvent({
     required this.context,
     required this.username,
     required this.email,
@@ -25,13 +28,13 @@ class Register extends RegisterEvent {
   });
 
   @override
-  List<Object?> get props => [
-        context,
-        username,
+  List<Object> get props => [
         email,
-        phoneNumber,
-        address,
         password,
         confirmPassword,
+        username,
+        phoneNumber,
+        address,
+        context
       ];
 }

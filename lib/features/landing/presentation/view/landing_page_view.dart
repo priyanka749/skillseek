@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skillseek/features/landing/presentation/view_model/landing_cubit.dart';
 import 'package:skillseek/view/onboarding_view.dart';
+
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
+
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
 
 class LandingpageView extends StatelessWidget {
   const LandingpageView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const SplashView();
+  }
+}
+
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<SplashCubit>().init(context);
+  }
 
   @override
   Widget build(BuildContext context) {
