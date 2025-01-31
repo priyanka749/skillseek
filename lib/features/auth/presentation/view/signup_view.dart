@@ -1,6 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:skillseek/app/di/di.dart';
 import 'package:skillseek/features/auth/presentation/view/login_view.dart';
+import 'package:skillseek/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_event.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_state.dart';
@@ -19,7 +26,85 @@ class _SignUpPageState extends State<SignUpPage> {
   final _addressController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _skillsController = TextEditingController();
+  final _roleController = TextEditingController();
   final _key = GlobalKey<FormState>();
+
+  File? _img;
+  List<String> _skills = []; // List to hold selected skills
+  String? _role;
+
+  final List<String> _roles = ['User', 'Service Provider'];
+
+  final List<String> _skillsList = [
+    'Plumber',
+    'Electrician',
+    'Carpenter',
+    'Painter',
+    'Mechanic',
+    'Tailor',
+    'Cook',
+    'Cleaner',
+    'Driver',
+  ];
+
+  // Check for camera permission
+  Future<void> checkCameraPermission() async {
+    if (await Permission.camera.request().isRestricted ||
+        await Permission.camera.request().isDenied) {
+      await Permission.camera.request();
+    }
+  }
+
+  Future<void> _browseImage(ImageSource imageSource) async {
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image != null) {
+        setState(() {
+          _img = File(image.path);
+          // Send image to server
+          context.read<RegisterBloc>().add(
+                UploadImage(file: _img!),
+              );
+        });
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void _showImagePickerOptions() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick an option'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text('Camera'),
+                onTap: () async {
+                  Navigator.pop(context);
+                  checkCameraPermission();
+                  await _browseImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
+                onTap: () async {
+                  Navigator.pop(context);
+                  await _browseImage(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +129,6 @@ class _SignUpPageState extends State<SignUpPage> {
               SnackBar(content: Text(state.errorMessage)),
             );
           }
-
-          // TODO: implement listener
         },
         builder: (context, state) {
           return SingleChildScrollView(
@@ -55,28 +138,35 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 60),
                   Text(
                     'Sign Up',
                     style: TextStyle(
-                      fontSize: isSmallScreen ? 29 : 32,
+                      fontSize: isSmallScreen ? 30 : 32,
                       fontWeight: FontWeight.bold,
                       color: const Color(0xFF1F4A9B),
                       fontFamily: 'Poppins',
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: screenHeight * 0.03),
-                  Text(
-                    'Create Your Account',
-                    style: TextStyle(
-                      fontSize: isSmallScreen ? 18 : 22,
-                      fontWeight: FontWeight.w500,
-                      color: const Color.fromARGB(255, 8, 8, 8),
-                      fontFamily: 'Poppins',
+
+                  // Profile image display with onTap to open image picker options
+                  GestureDetector(
+                    onTap: _showImagePickerOptions,
+                    child: SizedBox(
+                      height: 130,
+                      width: 100,
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: _img != null
+                            ? FileImage(_img!)
+                            : const AssetImage(
+                                    'assets/images/skillseeklogo.png')
+                                as ImageProvider,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
                   ),
+
                   SizedBox(height: screenHeight * 0.05),
                   CustomTextField(
                     controller: _usernameController,
@@ -126,6 +216,83 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                   ),
                   SizedBox(height: screenHeight * 0.02),
+
+                  // Role Dropdown
+                  DropdownButtonFormField<String>(
+                    value: _role,
+                    decoration: InputDecoration(
+                      labelText: 'Role',
+                      prefixIcon: const Icon(Icons.person_add_alt),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    items: _roles
+                        .map(
+                          (role) => DropdownMenuItem(
+                            value: role,
+                            child: Text(role),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _role = value;
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select a role';
+                      }
+                      return null;
+                    },
+                  ),
+
+                  SizedBox(height: screenHeight * 0.02),
+
+                  // Multi-select skills
+                  MultiSelectDialogField(
+                    title: const Text('Select skills'),
+                    items: _skillsList
+                        .map(
+                          (skill) => MultiSelectItem(skill, skill),
+                        )
+                        .toList(),
+                    listType: MultiSelectListType.CHIP,
+                    buttonText: const Text(
+                      'Select skills',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color(0xFF1F4A9B),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    chipDisplay: MultiSelectChipDisplay(
+                      onTap: (value) {
+                        setState(() {
+                          _skills.remove(value);
+                        });
+                      },
+                      textStyle: const TextStyle(color: Colors.black),
+                    ),
+                    buttonIcon: const Icon(Icons.search),
+                    onConfirm: (values) {
+                      setState(() {
+                        _skills = List<String>.from(values);
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please select skills';
+                      }
+                      return null;
+                    },
+                  ),
+
+                  SizedBox(height: screenHeight * 0.02),
                   CustomTextField(
                     controller: _passwordController,
                     hintText: 'Password',
@@ -154,7 +321,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       return null;
                     },
                   ),
-                  SizedBox(height: screenHeight * 0.03),
+                  SizedBox(height: screenHeight * 0.05),
                   ElevatedButton(
                     onPressed: () {
                       if (_key.currentState?.validate() ?? false) {
@@ -165,9 +332,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 email: _emailController.text,
                                 address: _addressController.text,
                                 phoneNumber: _phoneNumberController.text,
+                                role: _roleController.text,
+                                skill: _skillsController.text,
                                 password: _passwordController.text,
                                 confirmPassword:
                                     _confirmPasswordController.text,
+                                image: _img.toString(),
                               ),
                             );
                         Navigator.push(
@@ -212,8 +382,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginView()),
+                              MaterialPageRoute(builder: (context) {
+                                return BlocProvider<LoginBloc>(
+                                  create: (context) => getIt<LoginBloc>(),
+                                  child: LoginView(),
+                                );
+                              }),
                             );
                           },
                           child: const Text(

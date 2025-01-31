@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:skillseek/features/auth/domain/entity/auth_entity.dart';
 
 abstract interface class IAuthDataSource {
@@ -6,4 +8,6 @@ abstract interface class IAuthDataSource {
   Future<String> userlogin(String username, String password);
 
   Future<AuthEntity> getCurrentUser();
+
+  Future<String> uploadProfilePicture(File file);
 }

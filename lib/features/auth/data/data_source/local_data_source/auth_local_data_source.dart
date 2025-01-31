@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:skillseek/core/network/hive_service.dart';
 import 'package:skillseek/features/auth/data/data_source/auth_data_source.dart';
 import 'package:skillseek/features/auth/data/model/auth_hive_model.dart';
@@ -16,8 +18,11 @@ class AuthLocalDataSource implements IAuthDataSource {
       email: "",
       phoneNumber: "",
       address: "",
+      role: "",
+      skill: "",
       password: "",
       confirmPassword: "",
+      imageName: "",
     );
   }
 
@@ -35,11 +40,16 @@ class AuthLocalDataSource implements IAuthDataSource {
   @override
   Future<String> userlogin(String username, String password) async {
     try {
-      final User = await _hiveService.login(
+      final user = await _hiveService.login(
           username, password); // Corrected "logi" to "login"
       return "login success";
     } catch (e) {
       return "login failed: $e";
     }
+  }
+
+  @override
+  Future<String> uploadProfilePicture(File file) {
+    throw UnimplementedError();
   }
 }

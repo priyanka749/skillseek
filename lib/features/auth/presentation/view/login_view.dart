@@ -31,16 +31,23 @@ class LoginView extends StatelessWidget {
               ),
             );
           } else {
-            // Show error message on failure
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Invalid Credentials'),
-                backgroundColor: Colors.red,
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DashboardView(),
               ),
             );
-          }
+            // Show error message on failure
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //     const SnackBar(
+            //       content: Text('Invalid Credentials'),
+            //       backgroundColor: Colors.red,
+            //     ),
+            //   );
+            // }
 
-          // TODO: implement listener
+            // TODO: implement listener
+          }
         },
         builder: (context, state) {
           return SingleChildScrollView(

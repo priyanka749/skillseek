@@ -12,6 +12,7 @@ abstract class LoginEvent extends Equatable {
 class LoginStudentEvent extends LoginEvent {
   final String username;
   final String password;
+
   final BuildContext context;
 
   const LoginStudentEvent({
