@@ -10,7 +10,6 @@ import 'package:skillseek/features/auth/data/repository/auth_local_repository.da
 import 'package:skillseek/features/auth/data/repository/auth_remote_repository.dart';
 import 'package:skillseek/features/auth/domain/use_case/login_usecase.dart';
 import 'package:skillseek/features/auth/domain/use_case/register_user_usecase.dart';
-import 'package:skillseek/features/auth/domain/use_case/upload_image_usecase.dart';
 import 'package:skillseek/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:skillseek/features/dashboard/presentation/view_model/home_cubit.dart';
@@ -23,6 +22,7 @@ Future<void> initDependencies() async {
   await _initApiService();
   await _initSharedPreferences();
 
+  // 🛠 Order Matters! Register `RegisterBloc` before `LoginBloc`
   await _initRegisterDependencies();
   await _initLoginDependencies();
   await _initHomeDependencies();
@@ -39,7 +39,6 @@ _initHiveService() {
 }
 
 _initApiService() {
-  // Remote Data Source
   getIt.registerLazySingleton<Dio>(
     () => ApiService(Dio()).dio,
   );
@@ -66,28 +65,19 @@ _initRegisterDependencies() async {
     () => AuthRemoteRepository(getIt<AuthRemoteDataSource>()),
   );
 
-  //  Register `RegisterUseCase`
+  // Register `RegisterUseCase`
   getIt.registerLazySingleton<RegisterUseCase>(
     () => RegisterUseCase(getIt<AuthRemoteRepository>()),
   );
 
-  // Image Upload Use Case
-  getIt.registerLazySingleton<UploadImageUsecase>(
-    () => UploadImageUsecase(
-      getIt<AuthLocalRepository>(),
-    ),
-  );
-
-  //  `RegisterUseCase` is used correctly
-  getIt.registerFactory<RegisterBloc>(
+  // ✅ **Fixed: Register `RegisterBloc` Before `LoginBloc`**
+  getIt.registerLazySingleton<RegisterBloc>(
     () => RegisterBloc(
-      registerUseCase: getIt<RegisterUseCase>(), // 🔥 FIXED
-      uploadImageUseCase: getIt<UploadImageUsecase>(),
+      registerUseCase: getIt<RegisterUseCase>(),
     ),
   );
 }
 
-// Register UseCase
 _initLoginDependencies() async {
   getIt.registerLazySingleton<TokenSharedPrefs>(
     () => TokenSharedPrefs(getIt<SharedPreferences>()),
@@ -104,7 +94,7 @@ _initLoginDependencies() async {
     () => LoginBloc(
       loginUseCase: getIt(),
       homeCubit: getIt<HomeCubit>(),
-      registerBloc: getIt<RegisterBloc>(),
+      registerBloc: getIt<RegisterBloc>(), // ✅ Now properly registered
     ),
   );
 }

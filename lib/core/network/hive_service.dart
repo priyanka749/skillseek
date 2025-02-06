@@ -16,7 +16,7 @@ class HiveService {
 
   Future<void> register(AuthHiveModel auth) async {
     var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.authBox);
-    await box.put(auth.userId, auth);
+    await box.put(auth.id, auth);
   }
 
   Future<void> deleteAuth(String id) async {
@@ -33,8 +33,7 @@ class HiveService {
   Future<AuthHiveModel?> login(String username, String password) async {
     var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.authBox);
     var auth = box.values.firstWhere(
-        (element) =>
-            element.username == username && element.password == password,
+        (element) => element.name == username && element.password == password,
         orElse: () => const AuthHiveModel.initial());
     return auth;
   }

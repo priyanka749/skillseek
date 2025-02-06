@@ -11,23 +11,23 @@ class AuthLocalRepository implements IAuthRepository {
 
   AuthLocalRepository(this._authLocalDataSource);
 
-  @override
-  Future<Either<Failure, AuthEntity>> getCurrentUser() async {
-    try {
-      final currentUser = await _authLocalDataSource.getCurrentUser();
-      return Right(currentUser);
-    } catch (e) {
-      return Left(LocalDatabaseFailure(message: e.toString()));
-    }
-  }
+  // @override
+  // Future<Either<Failure, AuthEntity>> getCurrentUser() async {
+  //   try {
+  //     final currentUser = await _authLocalDataSource.getCurrentUser();
+  //     return Right(currentUser);
+  //   } catch (e) {
+  //     return Left(LocalDatabaseFailure(message: e.toString()));
+  //   }
+  // }
 
   @override
   Future<Either<Failure, String>> userlogin(
-    String username,
+    String email,
     String password,
   ) async {
     try {
-      final token = await _authLocalDataSource.userlogin(username, password);
+      final token = await _authLocalDataSource.userlogin(email, password);
       return Right(token);
     } catch (e) {
       return Left(LocalDatabaseFailure(message: e.toString()));
@@ -46,6 +46,12 @@ class AuthLocalRepository implements IAuthRepository {
   @override
   Future<Either<Failure, String>> uploadProfilePicture(File file) {
     // TODO: implement uploadProfilePicture
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, AuthEntity>> getCurrentUser() {
+    // TODO: implement getCurrentUser
     throw UnimplementedError();
   }
 }

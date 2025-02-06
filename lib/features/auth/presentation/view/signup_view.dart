@@ -30,7 +30,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final _roleController = TextEditingController();
   final _key = GlobalKey<FormState>();
 
-  File? _img;
   List<String> _skills = []; // List to hold selected skills
   String? _role;
 
@@ -56,17 +55,20 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  Future<void> _browseImage(ImageSource imageSource) async {
+  File? _img;
+  Future _browseImage(ImageSource imageSource) async {
     try {
       final image = await ImagePicker().pickImage(source: imageSource);
       if (image != null) {
         setState(() {
           _img = File(image.path);
           // Send image to server
-          context.read<RegisterBloc>().add(
-                UploadImage(file: _img!),
-              );
+          // context.read<RegisterBloc>().add(
+          //       UploadImage(file: _img!),
+          //     );
         });
+      } else {
+        return;
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -160,8 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         radius: 50,
                         backgroundImage: _img != null
                             ? FileImage(_img!)
-                            : const AssetImage(
-                                    'assets/images/skillseeklogo.png')
+                            : const AssetImage('assets/images/person.png')
                                 as ImageProvider,
                       ),
                     ),
@@ -328,11 +329,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         context.read<RegisterBloc>().add(
                               RegisterStudentEvent(
                                 context: context,
-                                username: _usernameController.text,
+                                name: _usernameController.text,
                                 email: _emailController.text,
-                                address: _addressController.text,
+                                location: _addressController.text,
                                 phoneNumber: _phoneNumberController.text,
-                                role: _roleController.text,
                                 skill: _skillsController.text,
                                 password: _passwordController.text,
                                 confirmPassword:

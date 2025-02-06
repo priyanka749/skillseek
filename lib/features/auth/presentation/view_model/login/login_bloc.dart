@@ -5,7 +5,6 @@ import 'package:skillseek/app/di/di.dart';
 import 'package:skillseek/core/common/snackbar/my_snackbar.dart';
 import 'package:skillseek/features/auth/domain/use_case/login_usecase.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:skillseek/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:skillseek/features/dashboard/presentation/view_model/home_cubit.dart';
 
 part 'login_event.dart';
@@ -30,7 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       print('LoginStudentEvent');
       final result = await _loginUseCase(
         LoginParams(
-          username: event.username,
+          email: event.email,
           password: event.password,
         ),
       );
@@ -40,8 +39,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emit(state.copyWith(isLoading: false, isSuccess: false));
           ScaffoldMessenger.of(event.context).showSnackBar(
             const SnackBar(
-              content: Text('login sucessfull'),
-              backgroundColor: Color.fromARGB(255, 54, 244, 76),
+              content: Text('login unsucessfull'),
+              backgroundColor: Color.fromARGB(255, 224, 19, 56),
             ),
           );
         },
@@ -50,13 +49,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           showMySnackBar(
             context: event.context,
             message: "Login Successful",
-          );
-
-          Navigator.pushReplacement(
-            event.context,
-            MaterialPageRoute(
-              builder: (context) => const DashboardView(),
-            ),
           );
         },
       );

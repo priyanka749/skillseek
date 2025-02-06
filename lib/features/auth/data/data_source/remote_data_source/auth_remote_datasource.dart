@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:skillseek/app/constants/api_endpoints.dart';
 import 'package:skillseek/features/auth/data/data_source/auth_data_source.dart';
@@ -10,18 +8,17 @@ class AuthRemoteDataSource implements IAuthDataSource {
 
   AuthRemoteDataSource(this._dio);
 //  TODO: implement getCurrentUser
-  @override
   Future<AuthEntity> getCurrentUser() {
     throw UnimplementedError();
   }
 
   @override
-  Future<String> userlogin(String username, String password) async {
+  Future<String> userlogin(String email, String password) async {
     try {
       Response response = await _dio.post(
         ApiEndpoints.login,
         data: {
-          "username": username,
+          "email": email,
           "password": password,
         },
       );
@@ -45,55 +42,69 @@ class AuthRemoteDataSource implements IAuthDataSource {
       Response response = await _dio.post(
         ApiEndpoints.register,
         data: {
-          "username": user.username,
-          "phoneNumber": user.phoneNumber,
-          "address": user.address,
-          "role": user.role,
+          "email": user.email,
+          "phone_number": user.phoneNumber,
+          "location": user.location,
           "skill": user.skill,
           "password": user.password,
-          "confirmPassword": user.confirmPassword,
-          "email": user.email,
-          "images": user.imageName,
+          "name": user.name,
+          "images": user.image ?? "", // Ensuring null safety
+          "role": "Customer"
         },
       );
+
       if (response.statusCode == 201) {
         return;
       } else {
-        throw Exception(response.statusMessage);
+        throw Exception(response.data["message"] ?? "Registration failed");
       }
     } on DioException catch (e) {
-      throw Exception(e);
+      String errorMessage = "Registration failed";
+      if (e.response != null) {
+        errorMessage = e.response?.data["message"] ?? e.message ?? errorMessage;
+      } else if (e.type == DioExceptionType.connectionTimeout) {
+        errorMessage = "Connection timed out. Please try again.";
+      } else if (e.type == DioExceptionType.receiveTimeout) {
+        errorMessage =
+            "Server took too long to respond. Please try again later.";
+      } else if (e.type == DioExceptionType.badResponse) {
+        errorMessage = "Invalid response from server.";
+      } else if (e.type == DioExceptionType.unknown) {
+        errorMessage = "An unknown error occurred.";
+      }
+
+      throw Exception(errorMessage);
     } catch (e) {
-      throw Exception(e);
+      throw Exception("An unexpected error occurred: ${e.toString()}");
     }
   }
 
-  @override
-  Future<String> uploadProfilePicture(File file) async {
-    try {
-      String fileName = file.path.split('/').last;
-      FormData formData = FormData.fromMap(
-        {
-          'profilePicture': await MultipartFile.fromFile(
-            file.path,
-            filename: fileName,
-          ),
-        },
-      );
-      Response response = await _dio.post(
-        ApiEndpoints.uploadImage,
-        data: formData,
-      );
+  // @override
+  // Future<String> uploadProfilePicture(File file) async {
+  //   try {
+  //     String fileName = file.path.split('/').last;
+  //     FormData formData = FormData.fromMap(
+  //       {
+  //         'profilePicture': await MultipartFile.fromFile(
+  //           file.path,
+  //           filename: fileName,
+  //         ),
+  //       },
+  //     );
+  //     Response response = await _dio.post(
+  //       ApiEndpoints.uploadImage,
+  //       data: formData,
+  //     );
 
-      if (response.statusCode == 200) {
-        return response.data['data'];
-      } else {
-        throw Exception(response.statusMessage);
-      }
-    } on DioException catch (e) {
-      throw Exception(e);
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       return response.data['data'];
+  //     } else {
+  //       throw Exception(response.statusMessage);
+  //     }
+  //   } on DioException catch (e) {
+  //     throw Exception(e);
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
 }

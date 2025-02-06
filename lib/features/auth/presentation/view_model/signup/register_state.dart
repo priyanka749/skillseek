@@ -4,20 +4,20 @@ class RegisterState extends Equatable {
   final bool isLoading;
   final bool isSuccess;
   final String errorMessage;
-  final String? imageName;
+  final String? image;
 
   const RegisterState({
     required this.isLoading,
     required this.isSuccess,
     required this.errorMessage,
-    this.imageName,
+    this.image,
   });
 
   factory RegisterState.initial() {
     return const RegisterState(
       isLoading: false,
       isSuccess: false,
-      imageName: null,
+      image: null,
       errorMessage: '',
     );
   }
@@ -25,17 +25,17 @@ class RegisterState extends Equatable {
   RegisterState copyWith({
     bool? isLoading,
     bool? isSuccess,
-    String? imageName,
+    String? image,
     String? errorMessage,
   }) {
     return RegisterState(
       isLoading: isLoading ?? this.isLoading,
       isSuccess: isSuccess ?? this.isSuccess,
-      imageName: imageName ?? this.imageName,
+      image: image ?? this.image,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [isLoading, isSuccess, errorMessage, imageName];
+  List<Object?> get props => [isLoading, isSuccess, errorMessage, image];
 }

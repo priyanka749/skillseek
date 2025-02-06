@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:skillseek/core/error/failure.dart';
 import 'package:skillseek/features/auth/data/data_source/remote_data_source/auth_remote_datasource.dart';
@@ -38,13 +36,13 @@ class AuthRemoteRepository implements IAuthRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, String>> uploadProfilePicture(File file) async {
-    try {
-      final imageName = await _authRemoteDataSource.uploadProfilePicture(file);
-      return Right(imageName);
-    } catch (e) {
-      return Left(ApiFailure(message: e.toString()));
-    }
-  }
+  // @override
+  // Future<Either<Failure, String>> uploadProfilePicture(File file) async {
+  //   try {
+  //     final imageName = await _authRemoteDataSource.uploadProfilePicture(file);
+  //     return Right(imageName);
+  //   } catch (e) {
+  //     return Left(ApiFailure(message: e.toString()));
+  //   }
+  // }
 }

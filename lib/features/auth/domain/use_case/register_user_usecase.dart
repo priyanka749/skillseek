@@ -6,39 +6,33 @@ import 'package:skillseek/features/auth/domain/entity/auth_entity.dart';
 import 'package:skillseek/features/auth/domain/repository/auth_repository.dart';
 
 class RegisterUserParams extends Equatable {
-  final String username;
+  final String name;
   final String email;
   final String phoneNumber;
-  final String? address;
-  final String role;
+  final String location;
   final String skill;
   final String password;
-  final String confirmPassword;
-  final String imageName;
+  final String image;
 
   const RegisterUserParams({
-    required this.username,
+    required this.name,
     required this.email,
     required this.phoneNumber,
-    required this.address,
-    required this.role,
+    required this.location,
     required this.skill,
     required this.password,
-    required this.confirmPassword,
-    required this.imageName,
+    required this.image,
   });
 
   @override
   List<Object?> get props => [
-        username,
+        name,
         email,
         phoneNumber,
-        address,
-        role,
+        location,
         skill,
-        imageName,
+        image,
         password,
-        confirmPassword
       ];
 }
 
@@ -51,15 +45,13 @@ class RegisterUseCase implements UsecaseWithParams<void, RegisterUserParams> {
   Future<Either<Failure, void>> call(RegisterUserParams params) {
     // Map RegisterUserParams to AuthEntity
     final authEntity = AuthEntity(
-      username: params.username,
+      name: params.name,
       email: params.email,
       phoneNumber: params.phoneNumber,
-      address: params.address,
-      role: params.role,
+      location: params.location,
       skill: params.skill,
       password: params.password,
-      confirmPassword: params.password,
-      imageName: params.imageName,
+      image: params.image,
     );
     return repository.register(authEntity);
   }

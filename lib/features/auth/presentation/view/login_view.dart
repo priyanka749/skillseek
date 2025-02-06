@@ -7,7 +7,7 @@ import 'package:skillseek/features/dashboard/presentation/view/dashboard_view.da
 class LoginView extends StatelessWidget {
   LoginView({super.key});
   final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -20,34 +20,34 @@ class LoginView extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 246, 252, 255),
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
-          if (state.isLoading) {
-            // Show loading indicator if needed
-          } else if (state.isSuccess) {
-            // Navigate to the Dashboard if login is successful
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DashboardView(),
-              ),
-            );
-          } else {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DashboardView(),
-              ),
-            );
-            // Show error message on failure
-            //   ScaffoldMessenger.of(context).showSnackBar(
-            //     const SnackBar(
-            //       content: Text('Invalid Credentials'),
-            //       backgroundColor: Colors.red,
-            //     ),
-            //   );
-            // }
+          // if (state.isLoading) {
+          // Show loading indicator if needed
+          // } else if (state.isSuccess) {
+          // Navigate to the Dashboard if login is successful
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DashboardView(),
+            ),
+          );
+          // } else {
+          //   Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => const DashboardView(),
+          //     ),
+          //   );
+          // Show error message on failure
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     const SnackBar(
+          //       content: Text('Invalid Credentials'),
+          //       backgroundColor: Colors.red,
+          //     ),
+          //   );
+          // }
 
-            // TODO: implement listener
-          }
+          // TODO: implement listener
+          // }
         },
         builder: (context, state) {
           return SingleChildScrollView(
@@ -82,7 +82,7 @@ class LoginView extends StatelessWidget {
                   child: Column(
                     children: [
                       CustomTextField(
-                        controller: _usernameController,
+                        controller: _emailController,
                         hintText: 'Username',
                         icon: Icons.person,
                         validator: (value) {
@@ -116,7 +116,7 @@ class LoginView extends StatelessWidget {
                                 print('Login Button Pressed');
                                 context.read<LoginBloc>().add(LoginStudentEvent(
                                       context: context,
-                                      username: _usernameController.text,
+                                      email: _emailController.text,
                                       password: _passwordController.text,
                                     ));
                               }

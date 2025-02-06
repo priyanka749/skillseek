@@ -6,29 +6,25 @@ part 'auth_api_model.g.dart';
 
 @JsonSerializable()
 class AuthApiModel extends Equatable {
-  @JsonKey(name: 'userId')
-  final String? userId;
-  final String username;
+  @JsonKey(name: '_id')
+  final String? id;
   final String email;
   final String phoneNumber;
-  final String? address;
-  final String role;
+  final String name;
+  final String location;
   final String skill;
   final String password;
-  final String confirmPassword;
-  final String imageName;
+  final String image;
 
   const AuthApiModel({
-    this.userId,
-    required this.username,
+    this.id,
     required this.email,
     required this.phoneNumber,
-    required this.address,
-    required this.role,
+    required this.location,
     required this.skill,
+    required this.name,
     required this.password,
-    required this.confirmPassword,
-    required this.imageName,
+    required this.image,
   });
 
   factory AuthApiModel.fromJson(Map<String, dynamic> json) =>
@@ -37,43 +33,37 @@ class AuthApiModel extends Equatable {
 
   //to Entity
   AuthEntity toEntity() => AuthEntity(
-        userId: userId,
-        username: username,
+        id: id,
+        name: name,
         email: email,
         phoneNumber: phoneNumber,
-        address: address,
-        role: role,
+        location: location,
         skill: skill,
         password: password,
-        confirmPassword: confirmPassword,
-        imageName: imageName,
+        image: image,
       );
 
   //from Entity
   factory AuthApiModel.fromEntity(AuthEntity entity) => AuthApiModel(
-        userId: entity.userId,
-        username: entity.username,
+        id: entity.id,
+        name: entity.name,
         email: entity.email,
         phoneNumber: entity.phoneNumber,
-        address: entity.address,
-        role: entity.role,
+        location: entity.location,
         skill: entity.skill,
         password: entity.password,
-        confirmPassword: entity.confirmPassword,
-        imageName: entity.imageName,
+        image: entity.image,
       );
 
   @override
   List<Object?> get props => [
-        userId,
-        username,
+        id,
+        name,
         email,
         phoneNumber,
-        address,
-        role,
+        location,
         skill,
         password,
-        confirmPassword,
-        imageName,
+        image,
       ];
 }
