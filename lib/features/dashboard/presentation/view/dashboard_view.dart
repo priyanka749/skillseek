@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skillseek/features/service_provider/presentation/view/services_provider.dart';
+import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_bloc.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
@@ -204,7 +207,7 @@ class HomeScreen extends StatelessWidget {
                     const Column(
                       children: [
                         ServiceCard(
-                          name: 'John Doe',
+                          name: 'Plumber',
                           rating: 4.9,
                           description:
                               'Highly experienced in plumbing services.',
@@ -212,7 +215,7 @@ class HomeScreen extends StatelessWidget {
                               'assets/images/Plumber with tools repairing a pipe.png',
                         ),
                         ServiceCard(
-                          name: 'Jane Smith',
+                          name: 'painter',
                           rating: 4.7,
                           description:
                               'Expert in electrical installations and repairs.',
@@ -220,7 +223,7 @@ class HomeScreen extends StatelessWidget {
                               'assets/images/The painter paints the wall.png',
                         ),
                         ServiceCard(
-                          name: 'Mike Johnson',
+                          name: 'Carpenter',
                           rating: 4.8,
                           description:
                               'Reliable mechanic for all vehicle needs.',
@@ -392,7 +395,18 @@ class ServiceCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: context.read<
+                            ServiceProviderBloc>(), // ✅ Ensure correct Bloc instance is passed
+                        child: const ServiceProviderScreen(),
+                      ),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF1F4A9B),
                   foregroundColor: Colors.white,

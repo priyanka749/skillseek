@@ -8,13 +8,20 @@ sealed class RegisterEvent extends Equatable {
   List<Object> get props => [];
 }
 
-// class UploadImage extends RegisterEvent {
-//   final File file;
+class VerifyOtp extends RegisterEvent {
+  final String otp;
+  final BuildContext context;
+  final String email;
 
-//   const UploadImage({
-//     required this.file,
-//   });
-// }
+  const VerifyOtp({
+    required this.otp,
+    required this.context,
+    required this.email,
+  });
+
+  @override
+  List<Object> get props => [otp, context, email];
+}
 
 class RegisterStudentEvent extends RegisterEvent {
   final BuildContext context;
@@ -38,4 +45,32 @@ class RegisterStudentEvent extends RegisterEvent {
     required this.confirmPassword,
     this.image,
   });
+
+  @override
+  List<Object> get props => [
+        context,
+        name,
+        email,
+        phoneNumber,
+        location,
+        skill,
+        password,
+        confirmPassword,
+        image ?? '',
+      ];
+}
+
+class VerifyOtpEvent extends RegisterEvent {
+  final String email;
+  final String otp;
+  final BuildContext context;
+
+  const VerifyOtpEvent({
+    required this.email,
+    required this.otp,
+    required this.context,
+  });
+
+  @override
+  List<Object> get props => [email, otp, context];
 }

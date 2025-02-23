@@ -62,8 +62,6 @@ class AuthRemoteDataSource implements IAuthDataSource {
       String errorMessage = "Registration failed";
       if (e.response != null) {
         errorMessage = e.response?.data["message"] ?? e.message ?? errorMessage;
-      } else if (e.type == DioExceptionType.connectionTimeout) {
-        errorMessage = "Connection timed out. Please try again.";
       } else if (e.type == DioExceptionType.receiveTimeout) {
         errorMessage =
             "Server took too long to respond. Please try again later.";
@@ -107,4 +105,27 @@ class AuthRemoteDataSource implements IAuthDataSource {
   //     throw Exception(e);
   //   }
   // }
+
+  @override
+  Future<bool> verifyOtp(String email, String otp) async {
+    try {
+      Response response = await _dio.post(
+        ApiEndpoints.verifyOtp,
+        data: {
+          "email": email,
+          "otp": otp,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception(response.data['message'] ?? 'OTP verification failed');
+      }
+    } on DioException catch (e) {
+      throw Exception(e.response?.data['message'] ?? e.message);
+    } catch (e) {
+      throw Exception('An error occurred: $e');
+    }
+  }
 }

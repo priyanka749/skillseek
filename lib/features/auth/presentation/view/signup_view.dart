@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:skillseek/app/di/di.dart';
 import 'package:skillseek/features/auth/presentation/view/login_view.dart';
@@ -30,22 +29,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final _roleController = TextEditingController();
   final _key = GlobalKey<FormState>();
 
-  List<String> _skills = []; // List to hold selected skills
+  final List<String> _skills = []; // List to hold selected skills
   String? _role;
 
   final List<String> _roles = ['User', 'Service Provider'];
-
-  final List<String> _skillsList = [
-    'Plumber',
-    'Electrician',
-    'Carpenter',
-    'Painter',
-    'Mechanic',
-    'Tailor',
-    'Cook',
-    'Cleaner',
-    'Driver',
-  ];
 
   // Check for camera permission
   Future<void> checkCameraPermission() async {
@@ -252,46 +239,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(height: screenHeight * 0.02),
 
                   // Multi-select skills
-                  MultiSelectDialogField(
-                    title: const Text('Select skills'),
-                    items: _skillsList
-                        .map(
-                          (skill) => MultiSelectItem(skill, skill),
-                        )
-                        .toList(),
-                    listType: MultiSelectListType.CHIP,
-                    buttonText: const Text(
-                      'Select skills',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: const Color(0xFF1F4A9B),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    chipDisplay: MultiSelectChipDisplay(
-                      onTap: (value) {
-                        setState(() {
-                          _skills.remove(value);
-                        });
-                      },
-                      textStyle: const TextStyle(color: Colors.black),
-                    ),
-                    buttonIcon: const Icon(Icons.search),
-                    onConfirm: (values) {
-                      setState(() {
-                        _skills = List<String>.from(values);
-                      });
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please select skills';
-                      }
-                      return null;
-                    },
-                  ),
 
                   SizedBox(height: screenHeight * 0.02),
                   CustomTextField(
@@ -340,12 +287,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                 image: _img.toString(),
                               ),
                             );
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginView(),
-                          ),
-                        );
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => LoginView(),
+                        //   ),
+                        // );
                       }
                     },
                     style: ElevatedButton.styleFrom(
