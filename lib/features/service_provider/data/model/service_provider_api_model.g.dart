@@ -15,7 +15,6 @@ ServiceProviderApiModel _$ServiceProviderApiModelFromJson(
       phoneNumber: json['phoneNumber'] as String?,
       bio: json['bio'] as String,
       profileImage: json['profileImage'] as String?,
-      rating: (json['rating'] as num).toDouble(),
       location: json['location'] as String,
       skills:
           (json['skills'] as List<dynamic>).map((e) => e as String).toList(),
@@ -30,7 +29,6 @@ Map<String, dynamic> _$ServiceProviderApiModelToJson(
       'phoneNumber': instance.phoneNumber,
       'bio': instance.bio,
       'profileImage': instance.profileImage,
-      'rating': instance.rating,
       'location': instance.location,
       'skills': instance.skills,
     };

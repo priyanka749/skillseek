@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:skillseek/features/service_provider/domain/entity/service_provider_entity.dart';
 
 part 'service_provider_api_model.g.dart';
 
@@ -12,7 +13,6 @@ class ServiceProviderApiModel extends Equatable {
   final String? phoneNumber;
   final String bio;
   final String? profileImage;
-  final double rating;
   final String location;
   final List<String> skills;
 
@@ -23,10 +23,24 @@ class ServiceProviderApiModel extends Equatable {
     this.phoneNumber,
     required this.bio,
     this.profileImage,
-    required this.rating,
     required this.location,
     required this.skills,
   });
+
+  /// ✅ Convert API Model to Domain Entity
+  ServiceProviderEntity toEntity() {
+    return ServiceProviderEntity(
+      id: id ?? '',
+      userId: '',
+      name: name ?? 'Unknown',
+      email: email ?? 'No Email',
+      phoneNumber: phoneNumber ?? 'N/A',
+      bio: bio,
+      profileImage: profileImage ?? '',
+      location: location,
+      skills: skills,
+    );
+  }
 
   factory ServiceProviderApiModel.fromJson(Map<String, dynamic> json) =>
       _$ServiceProviderApiModelFromJson(json);
@@ -41,7 +55,6 @@ class ServiceProviderApiModel extends Equatable {
         phoneNumber,
         bio,
         profileImage,
-        rating,
         location,
         skills,
       ];

@@ -7,8 +7,7 @@ class ServiceProviderEntity extends Equatable {
   final String email;
   final String phoneNumber;
   final String bio;
-  final String profileImage;
-  final double rating;
+  final String? profileImage;
   final String location;
   final List<String> skills;
 
@@ -19,23 +18,29 @@ class ServiceProviderEntity extends Equatable {
     required this.email,
     required this.phoneNumber,
     required this.bio,
-    required this.profileImage,
-    required this.rating,
+    this.profileImage,
     required this.location,
     required this.skills,
   });
 
-  const ServiceProviderEntity.empty()
-      : id = null,
-        userId = '',
-        name = '',
-        email = '',
-        phoneNumber = '',
-        bio = '',
-        profileImage = '',
-        rating = 0.0,
-        location = '',
-        skills = const [];
+  factory ServiceProviderEntity.fromJson(Map<String, dynamic> json) {
+    print("📌 Raw JSON Data: $json"); // ✅ Print API response for debugging
+
+    return ServiceProviderEntity(
+      id: json['id'] ?? '',
+      userId: json['userId'] ?? '',
+      name: json['name'] ?? 'Unknown',
+      email: json['email'] ?? 'No Email',
+      phoneNumber: json['phoneNumber'] ?? 'N/A',
+      bio: json['bio'] ?? '',
+      profileImage: json['profileImage']?.replaceAll('\\', '/'),
+      location: json['location'] ?? '',
+      skills: (json['skills'] as List<dynamic>?)
+              ?.map((e) => e.toString()) // ✅ Convert all values to strings
+              .toList() ??
+          [],
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -46,7 +51,6 @@ class ServiceProviderEntity extends Equatable {
         phoneNumber,
         bio,
         profileImage,
-        rating,
         location,
         skills,
       ];
