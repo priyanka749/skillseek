@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:skillseek/core/error/failure.dart';
-import 'package:skillseek/features/service_provider/data/data_source/remote_data_source/service_provider_remote_data_source.dart';
 import 'package:skillseek/features/service_provider/data/data_source/service_provider_data_source.dart';
 import 'package:skillseek/features/service_provider/domain/entity/service_provider_entity.dart';
 import 'package:skillseek/features/service_provider/domain/repository/service_provider_repository.dart';

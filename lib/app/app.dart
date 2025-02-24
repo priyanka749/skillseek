@@ -50,6 +50,8 @@ import 'package:skillseek/features/auth/presentation/view_model/signup/register_
 import 'package:skillseek/features/dashboard/presentation/view_model/home_cubit.dart';
 import 'package:skillseek/features/landing/presentation/view/landing_page_view.dart';
 import 'package:skillseek/features/landing/presentation/view_model/landing_cubit.dart';
+import 'package:skillseek/features/request/domain/usecase/request_usecase.dart';
+import 'package:skillseek/features/request/presentation/view_model/request_bloc.dart';
 import 'package:skillseek/features/service_provider/domain/usecase/service_provider_usecase.dart';
 import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_bloc.dart';
 import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_event.dart';
@@ -81,6 +83,11 @@ class MyApp extends StatelessWidget {
             ..add(FetchServiceProviders()), // ✅ Ensure event is dispatched
         ),
         // ✅ Ensure event is dispatched
+        BlocProvider<ServiceRequestBloc>(
+          create: (_) => ServiceRequestBloc(
+            sendServiceRequestUseCase: getIt<SendServiceRequestUseCase>(),
+          ),
+        ),
 
         BlocProvider<SplashCubit>(
           create: (context) => SplashCubit(getIt<LoginBloc>()),

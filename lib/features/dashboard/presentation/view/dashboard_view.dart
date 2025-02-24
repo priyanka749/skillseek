@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skillseek/features/service_provider/presentation/view/services_provider.dart';
 import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_bloc.dart';
+import 'package:skillseek/view/about.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
@@ -17,7 +18,7 @@ class _DashboardViewState extends State<DashboardView> {
     const HomeScreen(),
     const Text('Settings Page'),
     const Text('Profile Page'),
-    const Text('About Page'),
+    const AboutScreen(), // ✅ Navigate to About Page
   ];
 
   @override
@@ -46,12 +47,12 @@ class _DashboardViewState extends State<DashboardView> {
           const SizedBox(width: 8),
         ],
       ),
-      body: _pages[_currentIndex],
+      body: _pages[_currentIndex], // ✅ Switch Pages Dynamically
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
-            _currentIndex = index;
+            _currentIndex = index; // ✅ Update Index
           });
         },
         type: BottomNavigationBarType.fixed,
@@ -61,7 +62,8 @@ class _DashboardViewState extends State<DashboardView> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Setting'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.info), label: 'About'), // ✅ About Page
         ],
       ),
     );

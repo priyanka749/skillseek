@@ -14,6 +14,7 @@ class ApiEndpoints {
 
   // static const String getServiceProviders ="provider/";
   static const String getServiceProviders = "provider/";
+  static const String sendRequest = "requests/send";
 
   // static const String getAllUsers = "auth/getAlluser";
   // static const String getStudentsByBatch = "auth/getStudentsByBatch/";

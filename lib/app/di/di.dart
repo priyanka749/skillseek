@@ -135,6 +135,13 @@ import 'package:skillseek/features/auth/presentation/view_model/login/login_bloc
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:skillseek/features/dashboard/presentation/view_model/home_cubit.dart';
 import 'package:skillseek/features/landing/presentation/view_model/landing_cubit.dart';
+import 'package:skillseek/features/request/data/data_source/remote_datasource/request_remote_datasource.dart';
+import 'package:skillseek/features/request/data/data_source/request_datasource.dart';
+import 'package:skillseek/features/request/data/repository/request_data_repository.dart';
+import 'package:skillseek/features/request/domain/repository/request_repository.dart';
+import 'package:skillseek/features/request/domain/usecase/request_usecase.dart'
+    as usecase;
+import 'package:skillseek/features/request/presentation/view_model/request_bloc.dart';
 // ✅ Correct Service Provider Imports
 import 'package:skillseek/features/service_provider/data/data_source/remote_data_source/service_provider_remote_data_source.dart';
 import 'package:skillseek/features/service_provider/data/data_source/service_provider_data_source.dart';
@@ -158,6 +165,7 @@ Future<void> initDependencies() async {
 
   // ✅ Register Service Provider Dependencies
   _initServiceProviderDependencies();
+  _initServiceRequestDependencies();
 }
 
 Future<void> _initSharedPreferences() async {
@@ -264,5 +272,29 @@ void _initServiceProviderDependencies() {
 
   getIt.registerFactory<ServiceProviderBloc>(
     () => ServiceProviderBloc(getIt<GetServiceProviders>()),
+  );
+}
+
+void _initServiceRequestDependencies() {
+  // Register Remote Data Source
+  getIt.registerLazySingleton<IServiceRequestRemoteDataSource>(
+    () => ServiceRequestRemoteDataSource(getIt<Dio>()),
+  );
+
+  // Register Repository
+  getIt.registerLazySingleton<IServiceRequestRepository>(
+    () => ServiceRequestRemoteRepository(
+        getIt<IServiceRequestRemoteDataSource>()),
+  );
+
+  // ✅ Register Use Case Properly (Remove unnecessary parameters)
+  getIt.registerLazySingleton<usecase.SendServiceRequestUseCase>(
+    () => usecase.SendServiceRequestUseCase(getIt<IServiceRequestRepository>()),
+  );
+
+  // ✅ Register BLoC
+  getIt.registerFactory<ServiceRequestBloc>(
+    () => ServiceRequestBloc(
+        sendServiceRequestUseCase: getIt<usecase.SendServiceRequestUseCase>()),
   );
 }
