@@ -15,6 +15,9 @@ class ApiEndpoints {
   // static const String getServiceProviders ="provider/";
   static const String getServiceProviders = "provider/";
   static const String sendRequest = "requests/send";
+  static const String getAllServices = "services/"; // ✅ Fetch all services
+  static const String getProviderServices =
+      "services/"; // ✅ Fetch services by provider (append userId)
 
   // static const String getAllUsers = "auth/getAlluser";
   // static const String getStudentsByBatch = "auth/getStudentsByBatch/";
@@ -23,4 +26,6 @@ class ApiEndpoints {
   // static const String deleteUsers = "auth/deleteuser/";
   // static const String imageUrl = "http://10.0.2.2:3000/uploads/";
   static const String uploadImage = "auth/uploadImage";
+  static const String imageUrl =
+      "http://10.0.2.2:3000/uploads/"; // ✅ Image base URL
 }

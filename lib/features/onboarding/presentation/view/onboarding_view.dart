@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skillseek/view/onboarding_page_view.dart';
+import 'package:skillseek/features/auth/presentation/view/signup_view.dart'; // Import SignUpPage
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -95,10 +95,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         curve: Curves.ease,
                       );
                     } else {
-                      Navigator.push(
+                      // Navigate to SignUpPage when the onboarding is finished
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const OnboardingPageView()),
+                            builder: (context) => const SignUpPage()),
                       );
                     }
                   },

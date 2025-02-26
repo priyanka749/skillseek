@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skillseek/features/landing/presentation/view_model/landing_cubit.dart';
-import 'package:skillseek/view/onboarding_view.dart';
+import 'package:skillseek/features/onboarding/presentation/view/onboarding_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

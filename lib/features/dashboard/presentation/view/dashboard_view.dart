@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skillseek/features/service_provider/presentation/view/services_provider.dart';
 import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_bloc.dart';
+import 'package:skillseek/features/servicesavailable/presentation/view/service_available_view.dart';
 import 'package:skillseek/view/about.dart';
 
 class DashboardView extends StatefulWidget {
@@ -17,7 +18,7 @@ class _DashboardViewState extends State<DashboardView> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const Text('Settings Page'),
-    const Text('Profile Page'),
+    const ServiceListScreen(),
     const AboutScreen(), // ✅ Navigate to About Page
   ];
 

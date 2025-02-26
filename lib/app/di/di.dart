@@ -149,6 +149,12 @@ import 'package:skillseek/features/service_provider/data/repository/service_prov
 import 'package:skillseek/features/service_provider/domain/repository/service_provider_repository.dart';
 import 'package:skillseek/features/service_provider/domain/usecase/service_provider_usecase.dart';
 import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_bloc.dart';
+import 'package:skillseek/features/servicesavailable/data/datasource/remotedatasource/serviceavailable_remote_datasource.dart';
+import 'package:skillseek/features/servicesavailable/data/datasource/serviceavailable_datasource.dart';
+import 'package:skillseek/features/servicesavailable/data/repository/serviceavailable_repository.dart';
+import 'package:skillseek/features/servicesavailable/domain/repository/serviceavailable_repsoitory.dart';
+import 'package:skillseek/features/servicesavailable/domain/usecase/serviceavailable_usecase.dart';
+import 'package:skillseek/features/servicesavailable/presentation/view_more/service_available_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -162,6 +168,7 @@ Future<void> initDependencies() async {
   await _initLoginDependencies();
   await _initHomeDependencies();
   await _initSplashScreenDependencies();
+  _initServiceDependencies();
 
   // ✅ Register Service Provider Dependencies
   _initServiceProviderDependencies();
@@ -296,5 +303,27 @@ void _initServiceRequestDependencies() {
   getIt.registerFactory<ServiceRequestBloc>(
     () => ServiceRequestBloc(
         sendServiceRequestUseCase: getIt<usecase.SendServiceRequestUseCase>()),
+  );
+}
+
+void _initServiceDependencies() {
+  getIt.registerLazySingleton<IServiceDataSource>(
+    () => ServiceRemoteDataSource(getIt<Dio>()),
+  );
+
+  getIt.registerLazySingleton<IServiceRepository>(
+    () => ServiceRemoteRepository(getIt<IServiceDataSource>()),
+  );
+
+  // ✅ Register GetServices UseCase
+  getIt.registerLazySingleton<GetServices>(
+    () =>
+        GetServices(getIt<IServiceRepository>()), // 🚨 Ensure this line exists!
+  );
+
+  // ✅ Register ServiceBloc
+  getIt.registerFactory<ServiceBloc>(
+    () => ServiceBloc(
+        getIt<GetServices>()), // 🚨 Ensure `GetServices` is injected correctly!
   );
 }
