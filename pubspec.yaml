@@ -63,7 +63,7 @@ dependencies:
   date_format: ^2.0.9
   intl: ^0.20.2
   test_cov_console: ^0.2.2
-  # proximity_sensor: ^1.0.0 # Add this for the proximity sensor
+  proximity_sensor: ^1.0.0 # Add this for the proximity sensor
   # light: ^4.0.0
   # all_sensors2: ^1.0.1
   # light: ^4.0.0

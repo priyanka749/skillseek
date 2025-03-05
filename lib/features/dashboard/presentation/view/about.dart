@@ -1,8 +1,7 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors_plus.dart';
+import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:skillseek/features/dashboard/presentation/view/dashboard_view.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -13,40 +12,28 @@ class AboutScreen extends StatefulWidget {
 }
 
 class _AboutScreenState extends State<AboutScreen> {
-  double _accX = 0.0, _accY = 0.0, _accZ = 0.0;
-  StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
+  StreamSubscription<int>? _proximitySubscription; // Subscription for proximity sensor
   bool _isLoading = false; // To manage the loading spinner
+  bool _isProximityNear = false; // To track if proximity sensor is near
 
   @override
   void initState() {
     super.initState();
-    _startListeningToAccelerometer();
+    _startListeningToProximity(); // Start listening to proximity sensor
   }
 
-  /// ✅ Start listening to the Accelerometer Sensor
-  void _startListeningToAccelerometer() {
+  /// Start listening to the Proximity Sensor
+  void _startListeningToProximity() {
     try {
-      _accelerometerSubscription = accelerometerEvents.listen((event) {
+      _proximitySubscription = ProximitySensor.events.listen((event) {
         setState(() {
-          _accX = event.x;
-          _accY = event.y;
-          _accZ = event.z;
+          _isProximityNear = event == 1; // Check if the sensor is near
         });
-
-        // Check if the device was shaken
-        if (_isDeviceShaken()) {
-          _delayedRefresh();
-        }
+        print("Proximity Event: $event"); // Log the proximity event
       });
     } catch (e) {
-      print("❌ Accelerometer Sensor not available: $e");
+      print("❌ Proximity Sensor not available: $e");
     }
-  }
-
-  // Check if the device was shaken based on accelerometer values
-  bool _isDeviceShaken() {
-    return (_accX.abs() + _accY.abs() + _accZ.abs()) >
-        20; // Adjust threshold if needed
   }
 
   // Delayed refresh with loading indicator
@@ -67,24 +54,19 @@ class _AboutScreenState extends State<AboutScreen> {
       _isLoading = false; // Hide the loading spinner
     });
 
-    print("Screen refreshed due to shake!");
+    print("Screen refreshed due to proximity!");
   }
 
   @override
   void dispose() {
-    _accelerometerSubscription?.cancel();
+    _proximitySubscription?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Detect if the phone is shaken (you can adjust the threshold)
-    bool isShaken = _isDeviceShaken();
-
     return Scaffold(
-      backgroundColor: isShaken
-          ? Colors.grey[300] // Change the background based on shake
-          : Colors.white,
+      backgroundColor: _isProximityNear ? Colors.grey[300] : Colors.white, // Change the background based on proximity
       appBar: AppBar(
         backgroundColor: const Color(0xFF1F4A9B),
         elevation: 0,
@@ -114,14 +96,12 @@ class _AboutScreenState extends State<AboutScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Top Image
                 Image.asset(
                   "assets/images/home-cleaning-services-500x500 1.png",
                   height: 150,
                 ),
                 const SizedBox(height: 20),
 
-                // About Title
                 const Text(
                   "About SkillSeek",
                   style: TextStyle(
@@ -132,7 +112,6 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
                 const SizedBox(height: 8),
 
-                // Description
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
@@ -155,12 +134,10 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // Loading Indicator if in loading state
                 if (_isLoading) const CircularProgressIndicator(),
 
                 const SizedBox(height: 20),
 
-                // Back Home Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -190,4 +167,7 @@ class _AboutScreenState extends State<AboutScreen> {
       ),
     );
   }
+}
+
+class ProximityEvent {
 }
