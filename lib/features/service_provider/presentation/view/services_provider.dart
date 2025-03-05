@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skillseek/features/request/presentation/view_model/request_bloc.dart';
 import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_bloc.dart';
 import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_event.dart';
 import 'package:skillseek/features/service_provider/presentation/view_model/services/service_provider_state.dart';
-import 'package:skillseek/features/dashboard/presentation/view/message.dart';
 
 class ServiceProviderScreen extends StatelessWidget {
   const ServiceProviderScreen({super.key});
@@ -192,13 +190,6 @@ class ServiceProviderList extends StatelessWidget {
                               // Show success popup after a short delay
                               Future.delayed(const Duration(seconds: 1), () {
                                 // Navigate to the MessageBoxScreen
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MessageBoxScreen(),
-                                  ),
-                                );
                               });
                             },
                             style: ElevatedButton.styleFrom(
