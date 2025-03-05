@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:skillseek/app/di/di.dart';
 import 'package:skillseek/features/auth/presentation/view/login_view.dart';
+import 'package:skillseek/features/auth/presentation/view/otp_view.dart';
 import 'package:skillseek/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_event.dart';
@@ -111,7 +112,10 @@ class _SignUpPageState extends State<SignUpPage> {
             );
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => LoginView()),
+              MaterialPageRoute(
+                  builder: (context) => const OtpView(
+                        email: '',
+                      )),
             );
           } else if (state.errorMessage.isNotEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -149,7 +153,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         radius: 50,
                         backgroundImage: _img != null
                             ? FileImage(_img!)
-                            : const AssetImage('assets/images/person.png')
+                            : const AssetImage(
+                                    'assets/images/Screenshot 2025-03-04 010259.png')
                                 as ImageProvider,
                       ),
                     ),
@@ -203,40 +208,40 @@ class _SignUpPageState extends State<SignUpPage> {
                       return null;
                     },
                   ),
-                  SizedBox(height: screenHeight * 0.02),
+                  // SizedBox(height: screenHeight * 0.02),
 
-                  // Role Dropdown
-                  DropdownButtonFormField<String>(
-                    value: _role,
-                    decoration: InputDecoration(
-                      labelText: 'Role',
-                      prefixIcon: const Icon(Icons.person_add_alt),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    items: _roles
-                        .map(
-                          (role) => DropdownMenuItem(
-                            value: role,
-                            child: Text(role),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _role = value;
-                      });
-                    },
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Please select a role';
-                      }
-                      return null;
-                    },
-                  ),
+                  // // Role Dropdown
+                  // DropdownButtonFormField<String>(
+                  //   value: _role,
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Role',
+                  //     prefixIcon: const Icon(Icons.person_add_alt),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(20),
+                  //     ),
+                  //   ),
+                  //   items: _roles
+                  //       .map(
+                  //         (role) => DropdownMenuItem(
+                  //           value: role,
+                  //           child: Text(role),
+                  //         ),
+                  //       )
+                  //       .toList(),
+                  //   onChanged: (String? value) {
+                  //     setState(() {
+                  //       _role = value;
+                  //     });
+                  //   },
+                  //   validator: (value) {
+                  //     if (value == null) {
+                  //       return 'Please select a role';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
 
-                  SizedBox(height: screenHeight * 0.02),
+                  // SizedBox(height: screenHeight * 0.02),
 
                   // Multi-select skills
 
@@ -288,12 +293,14 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             );
 
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => LoginView(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OtpView(
+                              email: '',
+                            ),
+                          ),
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(

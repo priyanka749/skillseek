@@ -58,6 +58,9 @@ import 'package:skillseek/features/service_provider/presentation/view_model/serv
 import 'package:skillseek/features/servicesavailable/domain/usecase/serviceavailable_usecase.dart';
 import 'package:skillseek/features/servicesavailable/presentation/view_more/service_available_bloc.dart';
 import 'package:skillseek/features/servicesavailable/presentation/view_more/service_available_event.dart';
+import 'package:skillseek/features/user/domain/usecase/user_usecase.dart';
+import 'package:skillseek/features/user/presentation/view_more/user_bloc.dart';
+import 'package:skillseek/features/user/presentation/view_more/user_event.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // ✅ Ensure Flutter is initialized
@@ -95,6 +98,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<ServiceBloc>(
           create: (_) => ServiceBloc(getIt<GetServices>())
             ..add(FetchServices()), // ✅ Fetch services on startup
+        ),
+
+        /// ✅ Customer BLoC (With Initial Event Dispatch)
+        BlocProvider<CustomerBloc>(
+          create: (_) => CustomerBloc(getIt<CustomerUseCases>())
+            ..add(FetchCustomersEvent()), // ✅ Fetch customers on startup
         ),
 
         BlocProvider<SplashCubit>(

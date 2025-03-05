@@ -21,10 +21,11 @@ class ServiceProviderRemoteDataSource implements IServiceProviderDataSource {
 
         return providerList.map((data) {
           try {
-            return ServiceProviderApiModel.fromJson(data).toEntity(); // ✅ Use .toEntity()
+            return ServiceProviderApiModel.fromJson(data)
+                .toEntity(); // ✅ Use .toEntity()
           } catch (e) {
             print("🚨 Error Mapping Provider: $e for data: $data");
-            return ServiceProviderEntity(
+            return const ServiceProviderEntity(
               id: '',
               userId: '',
               name: 'Error',
@@ -38,7 +39,8 @@ class ServiceProviderRemoteDataSource implements IServiceProviderDataSource {
           }
         }).toList();
       } else {
-        throw Exception(response.data["message"] ?? "Failed to fetch service providers");
+        throw Exception(
+            response.data["message"] ?? "Failed to fetch service providers");
       }
     } on DioException catch (e) {
       print("🚨 Dio Exception: ${e.response?.data ?? e.message}");
