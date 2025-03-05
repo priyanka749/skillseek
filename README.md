@@ -1,16 +1,15 @@
-# skillseek
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![final](https://github.com/user-attachments/assets/5f4fd589-010e-4896-81c9-b6bb38f4bae5)
+![otpfinal](https://github.com/user-attachments/assets/d2b3bd74-d09b-420e-9bf1-9443cdd35d55)
+![onboarding page](https://github.com/user-attachments/assets/95482ec3-6eac-4385-8d06-92d26cef66aa)
+![onboarding2](https://github.com/user-attachments/assets/ab48a95a-eb88-4ace-b868-b2c276def8c4)
+![onboarding3](https://github.com/user-attachments/assets/783732ed-daa2-457c-bfb4-71d868e600a8)
+![signup](https://github.com/user-attachments/assets/ae3ce476-2d0e-4816-9e36-318115176a86)
+![login](https://github.com/user-attachments/assets/588ad7df-0776-418b-b255-8511e7a4ef40)
+![homepage](https://github.com/user-attachments/assets/96a12f6c-2c66-4d72-b127-3e060e04fb72)
+![setting](https://github.com/user-attachments/assets/65c2a562-e17a-4581-9ecd-82cceeb6ab62)
+![servicepage](https://github.com/user-attachments/assets/5edb74a3-fc80-4f1e-8619-5aa31e50a413)
+![serviceprovider](https://github.com/user-attachments/assets/bee77793-23ba-4e51-a103-95e38fba39f1)
+![messagebox](https://github.com/user-attachments/assets/c7f25fb6-7669-464c-a9a1-f23a38d07db3)
+![sucessmessage](https://github.com/user-attachments/assets/7dfecfb0-3134-4de9-acbf-5c3e29d3d78c)
+![profile](https://github.com/user-attachments/assets/763b12fd-9215-446f-bb11-04c7d31da6ff)
+![edit](https://github.com/user-attachments/assets/236b4ac0-da9e-469f-a3cc-8608e4022c1f)
