@@ -20,34 +20,14 @@ class LoginView extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 246, 252, 255),
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
-          // if (state.isLoading) {
-          // Show loading indicator if needed
-          // } else if (state.isSuccess) {
-          // Navigate to the Dashboard if login is successful
+          
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const DashboardView(),
             ),
           );
-          // } else {
-          //   Navigator.pushReplacement(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => const DashboardView(),
-          //     ),
-          //   );
-          // Show error message on failure
-          //   ScaffoldMessenger.of(context).showSnackBar(
-          //     const SnackBar(
-          //       content: Text('Invalid Credentials'),
-          //       backgroundColor: Colors.red,
-          //     ),
-          //   );
-          // }
-
-          // TODO: implement listener
-          // }
+          
         },
         builder: (context, state) {
           return SingleChildScrollView(

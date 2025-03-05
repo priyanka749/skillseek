@@ -208,43 +208,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       return null;
                     },
                   ),
-                  // SizedBox(height: screenHeight * 0.02),
-
-                  // // Role Dropdown
-                  // DropdownButtonFormField<String>(
-                  //   value: _role,
-                  //   decoration: InputDecoration(
-                  //     labelText: 'Role',
-                  //     prefixIcon: const Icon(Icons.person_add_alt),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(20),
-                  //     ),
-                  //   ),
-                  //   items: _roles
-                  //       .map(
-                  //         (role) => DropdownMenuItem(
-                  //           value: role,
-                  //           child: Text(role),
-                  //         ),
-                  //       )
-                  //       .toList(),
-                  //   onChanged: (String? value) {
-                  //     setState(() {
-                  //       _role = value;
-                  //     });
-                  //   },
-                  //   validator: (value) {
-                  //     if (value == null) {
-                  //       return 'Please select a role';
-                  //     }
-                  //     return null;
-                  //   },
-                  // ),
-
-                  // SizedBox(height: screenHeight * 0.02),
-
-                  // Multi-select skills
-
+             
                   SizedBox(height: screenHeight * 0.02),
                   CustomTextField(
                     controller: _passwordController,
