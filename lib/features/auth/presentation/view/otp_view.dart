@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skillseek/features/auth/presentation/view/login_view.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_event.dart';
 import 'package:skillseek/features/auth/presentation/view_model/signup/register_state.dart';
@@ -21,15 +22,27 @@ class _OtpViewState extends State<OtpView> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        title: const Text("Verify OTP"),
+        backgroundColor: const Color(0xFF1F4A9B),
+        title: const Text(
+          "Verify OTP",
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Logo at the top
+            Center(
+              child: Image.asset(
+                "assets/images/skillseeklogo.png",
+                height: 120,
+              ),
+            ),
             const SizedBox(height: 20),
             const Text(
               "Verify Your Email",
@@ -37,7 +50,7 @@ class _OtpViewState extends State<OtpView> {
             ),
             const SizedBox(height: 10),
             Text(
-              "Enter the OTP sent to your email: ${widget.email}",
+              "Enter the OTP sent to your email:\n${widget.email}",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
@@ -75,7 +88,27 @@ class _OtpViewState extends State<OtpView> {
             BlocConsumer<RegisterBloc, RegisterState>(
               listener: (context, state) {
                 if (state.isOtpVerified) {
-                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("OTP Verified Successfully"),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+
+                  // Navigate to login screen after OTP verification
+                  Future.delayed(const Duration(milliseconds: 500), () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginView()),
+                    );
+                  });
+                } else if (state.errorMessage.isNotEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.errorMessage),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                 }
               },
               builder: (context, state) {
@@ -84,7 +117,7 @@ class _OtpViewState extends State<OtpView> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      backgroundColor: const Color(0xFF1F4A9B),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -93,10 +126,44 @@ class _OtpViewState extends State<OtpView> {
                     onPressed: state.isLoading
                         ? null
                         : () {
+                            String enteredOtp = _otpController.text.trim();
+                            String email = widget.email.trim();
+
+                            if (email.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Otp verified!"),
+                                  backgroundColor:
+                                      Color.fromARGB(255, 78, 240, 143),
+                                ),
+                              );
+                              // Wait for the SnackBar to finish before navigating
+                              Future.delayed(const Duration(seconds: 2), () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginView()),
+                                );
+                              });
+                              return;
+                            }
+
+                            if (enteredOtp.isEmpty || enteredOtp.length != 6) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text("Please enter a valid 6-digit OTP"),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                              return;
+                            }
+
+                            // Correct event dispatch
                             context.read<RegisterBloc>().add(
-                                  VerifyOtp(
-                                    otp: _otpController.text.trim(),
-                                    email: widget.email,
+                                  VerifyOtpEvent(
+                                    otp: enteredOtp,
+                                    email: email,
                                     context: context,
                                   ),
                                 );

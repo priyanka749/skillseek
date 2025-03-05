@@ -4,6 +4,9 @@ class ApiEndpoints {
   static const Duration connectionTimeout = Duration(seconds: 1000);
   static const Duration receiveTimeout = Duration(seconds: 1000);
   static const String baseUrl = "http://10.0.2.2:3000/api/";
+  // static const String baseUrl = "http://192.168.1.139:3000/api/";
+
+  // static const String baseUrl = "http://192.168.1.134:3000/api/";
   // For iPhone
   //static const String baseUrl = "http://localhost:3000/api/v1/";
 
@@ -18,6 +21,12 @@ class ApiEndpoints {
   static const String getAllServices = "services/"; // ✅ Fetch all services
   static const String getProviderServices =
       "services/"; // ✅ Fetch services by provider (append userId)
+// ====================== Customer Routes ======================
+  static const String getAllCustomers = "customers/"; // ✅ Fetch all customers
+  static const String getCustomerProfile =
+      "customers/profile/"; // ✅ Fetch customer by ID (append ID)
+  static const String updateCustomerProfile =
+      "customers/profile/"; // ✅ Update customer profile (append ID)
 
   // static const String getAllUsers = "auth/getAlluser";
   // static const String getStudentsByBatch = "auth/getStudentsByBatch/";

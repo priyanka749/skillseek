@@ -56,6 +56,16 @@ dependencies:
   json_serializable: ^6.9.0
   mocktail: ^1.0.4
   test: ^1.25.8
+  light_sensor: ^3.0.1
+  flutter_riverpod: ^2.6.1
+  sensors_plus: ^6.1.1
+  bloc_test: ^10.0.0
+  date_format: ^2.0.9
+  intl: ^0.20.2
+  # proximity_sensor: ^1.0.0 # Add this for the proximity sensor
+  # light: ^4.0.0
+  # all_sensors2: ^1.0.1
+  # light: ^4.0.0
   
 
 dev_dependencies:

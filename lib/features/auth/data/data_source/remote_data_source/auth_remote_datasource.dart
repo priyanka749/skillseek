@@ -108,24 +108,31 @@ class AuthRemoteDataSource implements IAuthDataSource {
 
   @override
   Future<bool> verifyOtp(String email, String otp) async {
+    // Modified to accept email
     try {
+      print('Sending OTP verification request with email: $email, otp: $otp');
       Response response = await _dio.post(
         ApiEndpoints.verifyOtp,
         data: {
-          "email": email,
+          "email": email, // Use the passed email directly
           "otp": otp,
         },
       );
 
       if (response.statusCode == 200) {
+        print('OTP verification successful');
         return true;
       } else {
         throw Exception(response.data['message'] ?? 'OTP verification failed');
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? e.message);
+      print(
+          'DioException in verifyOtp: ${e.response?.data['message'] ?? e.message}');
+      throw Exception(
+          e.response?.data['message'] ?? e.message ?? 'OTP verification error');
     } catch (e) {
-      throw Exception('An error occurred: $e');
+      print('Error in verifyOtp: $e');
+      throw Exception('An error occurred during OTP verification: $e');
     }
   }
 }

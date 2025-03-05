@@ -155,6 +155,12 @@ import 'package:skillseek/features/servicesavailable/data/repository/serviceavai
 import 'package:skillseek/features/servicesavailable/domain/repository/serviceavailable_repsoitory.dart';
 import 'package:skillseek/features/servicesavailable/domain/usecase/serviceavailable_usecase.dart';
 import 'package:skillseek/features/servicesavailable/presentation/view_more/service_available_bloc.dart';
+import 'package:skillseek/features/user/data/datasource/remotedatasource/user_remotedatasource.dart';
+import 'package:skillseek/features/user/data/datasource/user_datasource.dart';
+import 'package:skillseek/features/user/data/repository/user_repository.dart';
+import 'package:skillseek/features/user/domain/repository/user_repository.dart';
+import 'package:skillseek/features/user/domain/usecase/user_usecase.dart';
+import 'package:skillseek/features/user/presentation/view_more/user_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -173,6 +179,7 @@ Future<void> initDependencies() async {
   // ✅ Register Service Provider Dependencies
   _initServiceProviderDependencies();
   _initServiceRequestDependencies();
+  _initCustomerDependencies();
 }
 
 Future<void> _initSharedPreferences() async {
@@ -325,5 +332,24 @@ void _initServiceDependencies() {
   getIt.registerFactory<ServiceBloc>(
     () => ServiceBloc(
         getIt<GetServices>()), // 🚨 Ensure `GetServices` is injected correctly!
+  );
+}
+
+void _initCustomerDependencies() {
+  getIt.registerLazySingleton<ICustomerDataSource>(
+    () => CustomerRemoteDataSource(getIt<Dio>()),
+  );
+
+  getIt.registerLazySingleton<ICustomerRepository>(
+    () => CustomerRemoteRepository(getIt<ICustomerDataSource>()),
+  );
+
+  getIt.registerLazySingleton<CustomerUseCases>(
+    () => CustomerUseCases(getIt<ICustomerRepository>()), // ✅ REGISTERED HERE
+  );
+
+  getIt.registerFactory<CustomerBloc>(
+    () => CustomerBloc(
+        getIt<CustomerUseCases>()), // ✅ Ensure CustomerBloc is Registered
   );
 }
